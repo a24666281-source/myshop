@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>蝦皮風格商品展示牆</title>
+  <title>商品展示牆與購物車</title>
   <style>
     /* 全域基礎設定 */
     * {
@@ -13,78 +13,122 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
     }
     body {
-      background-color: #f5f5f5;
+      background-color: #f6f6f6;
       color: #222;
-      padding: 24px 16px;
+      padding: 30px 20px;
     }
 
-    /* 容器與標題 */
+    /* 主容器 */
     .container {
-      max-width: 1240px;
+      max-width: 1360px;
       margin: 0 auto;
     }
+
+    /* 頂部導航/標題區 */
     .header-bar {
-      margin-bottom: 20px;
-      padding-bottom: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
       border-bottom: 2px solid #ee4d2d;
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
+    }
+    .header-left {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
     }
     .header-bar h1 {
-      font-size: 22px;
+      font-size: 26px;
       color: #ee4d2d;
       font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .header-subtitle {
+      font-size: 14px;
+      color: #777;
     }
 
-    /* 商品瀑布/網格排版 (預設電腦 6 欄，平板 3 欄，手機 2 欄) */
+    /* 購物車按鈕 */
+    .cart-btn {
+      position: relative;
+      background: #ee4d2d;
+      color: #fff;
+      border: none;
+      outline: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(238, 77, 45, 0.25);
+      transition: background 0.2s, transform 0.1s;
+    }
+    .cart-btn:hover {
+      background: #d73211;
+      transform: translateY(-1px);
+    }
+    .cart-btn:active {
+      transform: translateY(0);
+    }
+    .cart-badge {
+      background: #fff;
+      color: #ee4d2d;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 2px 7px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* 1 行 3 個商品網格 (平板 2 欄，手機 1 欄) */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
     }
-    @media (max-width: 1024px) {
-      .product-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-    @media (max-width: 768px) {
-      .product-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    @media (max-width: 480px) {
+    @media (max-width: 960px) {
       .product-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        gap: 16px;
+      }
+    }
+    @media (max-width: 580px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
     }
 
-    /* 商品卡片本體 */
+    /* 商品卡片主體 */
     .product-card {
       background: #fff;
-      border-radius: 4px;
-      border: 1px solid #ebebeb;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       position: relative;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
     .product-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      border-color: #f0a390;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      border-color: #ee4d2d;
     }
 
-    /* 圖片外框與角標 */
+    /* 圖片外框（正方形放大） */
     .img-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 100%; /* 1:1 正方形 */
-      background-color: #fafafa;
+      padding-top: 100%;
+      background-color: #f8f8f8;
       overflow: hidden;
+      cursor: pointer;
     }
     .img-wrapper img {
       position: absolute;
@@ -93,6 +137,10 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover .img-wrapper img {
+      transform: scale(1.03);
     }
 
     /* 右上角折數標籤 */
@@ -100,113 +148,317 @@
       position: absolute;
       top: 0;
       right: 0;
-      background: #ffe9e5;
+      background: #ffebe7;
       color: #ee4d2d;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
-      padding: 3px 6px;
-      border-bottom-left-radius: 3px;
+      padding: 5px 9px;
+      border-bottom-left-radius: 6px;
       z-index: 2;
     }
 
-    /* 圖片下方的免運綠條（截圖特徵） */
+    /* 圖片下方綠底免運條 */
     .shipping-bar {
       background-color: #005a5b;
       color: #8df0e7;
-      font-size: 10px;
-      padding: 3px 6px;
+      font-size: 12px;
+      padding: 6px 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     .shipping-bar span.coupon {
       background: #ff5722;
       color: #fff;
-      border-radius: 2px;
-      padding: 0 3px;
-      font-size: 9px;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 11px;
+      font-weight: 600;
     }
 
-    /* 內容資訊區 */
+    /* 卡片內容資訊區 */
     .info {
-      padding: 8px 10px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
       justify-content: space-between;
+      gap: 12px;
     }
 
-    /* 商品標題（最多兩行顯示並打點） */
+    /* 商品標題（可點擊、懸浮變色） */
     .product-title {
-      font-size: 13px;
-      line-height: 18px;
-      height: 36px;
+      font-size: 16px;
+      line-height: 22px;
+      height: 44px;
       color: #222;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .product-title:hover {
+      color: #ee4d2d;
     }
 
-    /* 標籤小按鈕區 */
+    /* 標籤小按鈕列 */
     .badges-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 6px;
+      gap: 6px;
+      margin-top: 4px;
     }
-    /* 蝦皮優選標籤 */
-    .tag-mall {
-      background-color: #d0011b;
-      color: #fff;
-      font-size: 10px;
-      padding: 1px 4px;
-      border-radius: 2px;
-      display: inline-block;
-      font-weight: 500;
-    }
-    /* 隔日到貨標籤 */
     .tag-delivery {
       border: 1px solid #26aa99;
       color: #26aa99;
-      font-size: 10px;
-      padding: 0 4px;
-      border-radius: 2px;
-      display: inline-block;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 3px;
       background: #fff;
+      font-weight: 500;
     }
-    /* 促銷優惠標籤 */
     .tag-promo {
       border: 1px solid #ee4d2d;
       color: #ee4d2d;
-      font-size: 10px;
-      padding: 0 4px;
-      border-radius: 2px;
-      display: inline-block;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 3px;
       background: #fff;
+      font-weight: 500;
     }
 
-    /* 價格欄位 */
+    /* 底層價格與購買操作列 */
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px dashed #eee;
+    }
     .price-row {
       display: flex;
       align-items: baseline;
       gap: 2px;
       color: #ee4d2d;
-      margin-top: 4px;
     }
     .price-currency {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
     }
     .price-amount {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 24px;
+      font-weight: 800;
       line-height: 1;
+    }
+
+    /* 加入購物車按鈕 */
+    .add-to-cart-btn {
+      background: #fff;
+      color: #ee4d2d;
+      border: 1.5px solid #ee4d2d;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .add-to-cart-btn:hover {
+      background: #ee4d2d;
+      color: #fff;
+    }
+
+    /* 購物車右側滑出抽屜 (Cart Drawer) */
+    .cart-drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .cart-drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      max-width: 90%;
+      height: 100%;
+      background: #fff;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+      transition: right 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .cart-drawer.active {
+      right: 0;
+    }
+    .cart-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-header h2 {
+      font-size: 18px;
+      color: #333;
+    }
+    .cart-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+      line-height: 1;
+    }
+    .cart-close-btn:hover {
+      color: #222;
+    }
+    .cart-items-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .cart-empty-msg {
+      text-align: center;
+      color: #999;
+      margin-top: 80px;
+      font-size: 15px;
+    }
+    .cart-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      background: #f7f7f7;
+    }
+    .cart-item-detail {
+      flex: 1;
+      min-width: 0;
+    }
+    .cart-item-title {
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+      color: #333;
+    }
+    .cart-item-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ee4d2d;
+    }
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .qty-btn {
+      width: 22px;
+      height: 22px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      cursor: pointer;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+    .qty-val {
+      font-size: 13px;
+      min-width: 18px;
+      text-align: center;
+    }
+    .cart-item-del {
+      background: none;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 13px;
+      margin-left: 6px;
+    }
+    .cart-item-del:hover {
+      color: #e53935;
+    }
+    .cart-footer {
+      padding: 16px 20px;
+      border-top: 1px solid #eee;
+      background: #fafafa;
+    }
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .cart-total-price {
+      color: #ee4d2d;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .checkout-btn {
+      width: 100%;
+      background: #ee4d2d;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .checkout-btn:hover {
+      background: #d73211;
+    }
+
+    /* 加入購物車浮動通知 (Toast) */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 14px;
+      z-index: 2000;
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
   </style>
 </head>
@@ -214,41 +466,49 @@
 
   <div class="container">
     <div class="header-bar">
-      <h1>今日推薦商品</h1>
-      <span style="font-size: 13px; color: #888;">全站免運活動進行中</span>
+      <div class="header-left">
+        <h1>精選推薦專區</h1>
+        <span class="header-subtitle">全站超取 $199 免運進行中</span>
+      </div>
+      <button class="cart-btn" id="openCartBtn">
+        🛒 購物車
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
     </div>
 
-    <div class="product-grid">
-
+    <!-- 商品網格：一行 3 個商品 -->
+    <div class="product-grid" id="productGrid">
+      
       <!-- 商品 1 -->
-      <div class="product-card">
+      <div class="product-card" data-id="1" data-title="保固一年 6吋夾式電風扇【現貨發票 限時降價】" data-price="189" data-img="https://images.unsplash.com/photo-1618941716939-553df3c6c278?w=600&q=80">
         <div class="img-wrapper">
           <span class="discount-badge">3.1折</span>
-          <img src="https://images.unsplash.com/photo-1618941716939-553df3c6c278?w=400&q=80" alt="循環夾式電風扇" />
+          <img src="https://images.unsplash.com/photo-1618941716939-553df3c6c278?w=600&q=80" alt="循環夾式電風扇" />
         </div>
         <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
         <div class="info">
           <div>
-            <p class="product-title">
-              <span class="tag-mall">蝦皮優選</span> 保固一年 6吋夾式電風扇【現貨發票 限時降價】
-            </p>
+            <p class="product-title">保固一年 6吋夾式電風扇【現貨發票 限時降價】</p>
             <div class="badges-row">
               <span class="tag-delivery">隔日到貨</span>
               <span class="tag-promo">無包裝</span>
             </div>
           </div>
-          <div class="price-row">
-            <span class="price-currency">$</span>
-            <span class="price-amount">189</span>
+          <div class="action-row">
+            <div class="price-row">
+              <span class="price-currency">$</span>
+              <span class="price-amount">189</span>
+            </div>
+            <button class="add-to-cart-btn">加入購物車</button>
           </div>
         </div>
       </div>
 
       <!-- 商品 2 -->
-      <div class="product-card">
+      <div class="product-card" data-id="2" data-title="當天出貨 韓系簡約大容量斜背包 女 單肩斜挎包 側背包" data-price="179" data-img="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80">
         <div class="img-wrapper">
           <span class="discount-badge">4.3折</span>
-          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80" alt="簡約側背包" />
+          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="簡約側背包" />
         </div>
         <div class="shipping-bar">
           <span>店取 $199免運 宅配 $490免運</span>
@@ -262,64 +522,69 @@
               <span class="tag-delivery">隔日到貨</span>
             </div>
           </div>
-          <div class="price-row">
-            <span class="price-currency">$</span>
-            <span class="price-amount">179</span>
+          <div class="action-row">
+            <div class="price-row">
+              <span class="price-currency">$</span>
+              <span class="price-amount">179</span>
+            </div>
+            <button class="add-to-cart-btn">加入購物車</button>
           </div>
         </div>
       </div>
 
       <!-- 商品 3 -->
-      <div class="product-card">
+      <div class="product-card" data-id="3" data-title="現貨隔日達 無線藍牙耳機 防掉防噪音 高音質" data-price="310" data-img="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80">
         <div class="img-wrapper">
           <span class="discount-badge">6.6折</span>
-          <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&q=80" alt="藍牙耳機" />
+          <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80" alt="藍牙耳機" />
         </div>
         <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
         <div class="info">
           <div>
-            <p class="product-title">
-              <span class="tag-mall">蝦皮優選</span> 現貨隔日達 無線藍牙耳機 防掉防噪音 高音質
-            </p>
+            <p class="product-title">現貨隔日達 無線藍牙耳機 防掉防噪音 高音質</p>
             <div class="badges-row">
               <span class="tag-delivery">隔日到貨</span>
             </div>
           </div>
-          <div class="price-row">
-            <span class="price-currency">$</span>
-            <span class="price-amount">310</span>
+          <div class="action-row">
+            <div class="price-row">
+              <span class="price-currency">$</span>
+              <span class="price-amount">310</span>
+            </div>
+            <button class="add-to-cart-btn">加入購物車</button>
           </div>
         </div>
       </div>
 
       <!-- 商品 4 -->
-      <div class="product-card">
+      <div class="product-card" data-id="4" data-title="摺疊口袋傘 附傘套 遮陽傘 口袋傘 迷你傘 輕量" data-price="65" data-img="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80">
         <div class="img-wrapper">
           <span class="discount-badge">2.2折</span>
-          <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&q=80" alt="摺疊口袋傘" />
+          <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80" alt="摺疊口袋傘" />
         </div>
         <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
         <div class="info">
           <div>
-            <p class="product-title">
-              <span class="tag-mall">蝦皮優選</span> 摺疊口袋傘 附傘套 遮陽傘 口袋傘 迷你傘 輕量
-            </p>
+            <p class="product-title">摺疊口袋傘 附傘套 遮陽傘 口袋傘 迷你傘 輕量</p>
             <div class="badges-row">
               <span class="tag-delivery">隔日到貨</span>
             </div>
           </div>
-          <div class="price-row">
-            <span class="price-currency">$</span>
-            <span class="price-amount">65</span>
+          <div class="action-row">
+            <div class="price-row">
+              <span class="price-currency">$</span>
+              <span class="price-amount">65</span>
+            </div>
+            <button class="add-to-cart-btn">加入購物車</button>
           </div>
         </div>
       </div>
 
       <!-- 商品 5 -->
-      <div class="product-card">
+      <div class="product-card" data-id="5" data-title="【台灣出貨】冰絲速乾衣 大碼男生夏季必備 90-100kg可穿" data-price="139" data-img="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80">
         <div class="img-wrapper">
           <span class="discount-badge">6.5折</span>
-          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&q=80" alt="冰絲速乾衣" />
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80" alt="冰絲速乾衣" />
         </div>
         <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
         <div class="info">
@@ -329,79 +594,85 @@
               <span class="tag-promo">2件裝</span>
             </div>
           </div>
-          <div class="price-row">
-            <span class="price-currency">$</span>
-            <span class="price-amount">139</span>
+          <div class="action-row">
+            <div class="price-row">
+              <span class="price-currency">$</span>
+              <span class="price-amount">139</span>
+            </div>
+            <button class="add-to-cart-btn">加入購物車</button>
           </div>
         </div>
       </div>
 
       <!-- 商品 6 -->
-      <div class="product-card">
+      <div class="product-card" data-id="6" data-title="現貨最新4代 藍芽耳機 耳機 可通話藍牙耳機" data-price="110" data-img="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=600&q=80">
         <div class="img-wrapper">
           <span class="discount-badge">1.4折</span>
-          <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&q=80" alt="迷你藍牙耳機" />
+          <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=600&q=80" alt="迷你藍牙耳機" />
         </div>
         <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
         <div class="info">
           <div>
-            <p class="product-title">
-              <span class="tag-mall">蝦皮優選</span> 現貨最新4代 藍芽耳機 耳機 可通話藍牙耳機
-            </p>
+            <p class="product-title">現貨最新4代 藍芽耳機 耳機 可通話藍牙耳機</p>
             <div class="badges-row">
               <span class="tag-promo">無包裝</span>
               <span class="tag-delivery">隔日到貨</span>
             </div>
           </div>
-          <div class="price-row">
-            <span class="price-currency">$</span>
-            <span class="price-amount">110</span>
+          <div class="action-row">
+            <div class="price-row">
+              <span class="price-currency">$</span>
+              <span class="price-amount">110</span>
+            </div>
+            <button class="add-to-cart-btn">加入購物車</button>
           </div>
         </div>
       </div>
 
       <!-- 商品 7 -->
-      <div class="product-card">
+      <div class="product-card" data-id="7" data-title="【KARAKORAM】側開秒穿 一件式雨衣 快速穿脫" data-price="569" data-img="https://images.unsplash.com/photo-1544441893-675973e31985?w=600&q=80">
         <div class="img-wrapper">
           <span class="discount-badge">5.2折</span>
-          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?w=400&q=80" alt="一件式雨衣" />
+          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?w=600&q=80" alt="一件式雨衣" />
         </div>
         <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
         <div class="info">
           <div>
-            <p class="product-title">
-              <span class="tag-mall">蝦皮優選</span> 【KARAKORAM】側開秒穿 一件式雨衣 快速穿脫
-            </p>
+            <p class="product-title">【KARAKORAM】側開秒穿 一件式雨衣 快速穿脫</p>
             <div class="badges-row">
               <span class="tag-delivery">隔日到貨</span>
             </div>
           </div>
-          <div class="price-row">
-            <span class="price-currency">$</span>
-            <span class="price-amount">569</span>
+          <div class="action-row">
+            <div class="price-row">
+              <span class="price-currency">$</span>
+              <span class="price-amount">569</span>
+            </div>
+            <button class="add-to-cart-btn">加入購物車</button>
           </div>
         </div>
       </div>
 
       <!-- 商品 8 -->
-      <div class="product-card">
+      <div class="product-card" data-id="8" data-title="20W 雙孔閃充電源頭 PD+QC充電器 適用蘋果安卓" data-price="184" data-img="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80">
         <div class="img-wrapper">
           <span class="discount-badge">2.7折</span>
-          <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&q=80" alt="20W 充電頭" />
+          <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80" alt="20W 充電頭" />
         </div>
         <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
         <div class="info">
           <div>
-            <p class="product-title">
-              <span class="tag-mall" style="background:#cc0000;">商城</span> 20W 雙孔閃充電源頭 PD+QC充電器 適用蘋果安卓
-            </p>
+            <p class="product-title">20W 雙孔閃充電源頭 PD+QC充電器 適用蘋果安卓</p>
             <div class="badges-row">
               <span class="tag-delivery">隔日到貨</span>
             </div>
           </div>
-          <div class="price-row">
-            <span class="price-currency">$</span>
-            <span class="price-amount">184</span>
+          <div class="action-row">
+            <div class="price-row">
+              <span class="price-currency">$</span>
+              <span class="price-amount">184</span>
+            </div>
+            <button class="add-to-cart-btn">加入購物車</button>
           </div>
         </div>
       </div>
@@ -409,5 +680,162 @@
     </div>
   </div>
 
+  <!-- 購物車滑出側邊欄 -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h2>我的購物車</h2>
+      <button class="cart-close-btn" id="closeCartBtn">&times;</button>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+      <div class="cart-empty-msg">購物車內目前沒有商品</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>商品總計</span>
+        <span class="cart-total-price" id="cartTotalPrice">$0</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">前往結帳</button>
+    </div>
+  </div>
+
+  <!-- 浮動提示 Toast -->
+  <div class="toast" id="toast">已加入購物車！</div>
+
+  <script>
+    // 購物車資料管理
+    let cart = [];
+
+    const cartCountEl = document.getElementById('cartCount');
+    const openCartBtn = document.getElementById('openCartBtn');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartItemsList = document.getElementById('cartItemsList');
+    const cartTotalPrice = document.getElementById('cartTotalPrice');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const toastEl = document.getElementById('toast');
+
+    // 開關購物車
+    function toggleCart(isOpen) {
+      if (isOpen) {
+        cartOverlay.classList.add('active');
+        cartDrawer.classList.add('active');
+      } else {
+        cartOverlay.classList.remove('active');
+        cartDrawer.classList.remove('active');
+      }
+    }
+    openCartBtn.addEventListener('click', () => toggleCart(true));
+    closeCartBtn.addEventListener('click', () => toggleCart(false));
+    cartOverlay.addEventListener('click', () => toggleCart(false));
+
+    // 顯示吐司提示
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      setTimeout(() => {
+        toastEl.classList.remove('show');
+      }, 2000);
+    }
+
+    // 更新購物車介面與計算
+    function updateCartUI() {
+      // 計算總數量與總額
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+      cartCountEl.textContent = totalCount;
+      cartTotalPrice.textContent = `$${totalSum.toLocaleString()}`;
+
+      if (cart.length === 0) {
+        cartItemsList.innerHTML = '<div class="cart-empty-msg">購物車內目前沒有商品</div>';
+        return;
+      }
+
+      cartItemsList.innerHTML = '';
+      cart.forEach((item, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+          <img src="${item.img}" alt="${item.title}">
+          <div class="cart-item-detail">
+            <div class="cart-item-title" title="${item.title}">${item.title}</div>
+            <div class="cart-item-price">$${item.price.toLocaleString()}</div>
+            <div class="cart-item-controls">
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+              <span class="qty-val">${item.quantity}</span>
+              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+              <button class="cart-item-del" onclick="removeItem(${index})">刪除</button>
+            </div>
+          </div>
+        `;
+        cartItemsList.appendChild(itemEl);
+      });
+    }
+
+    // 加入購物車
+    function addToCart(product) {
+      const existing = cart.find(item => item.id === product.id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+      updateCartUI();
+      showToast(`已將「${product.title.slice(0, 10)}...」加入購物車！`);
+    }
+
+    // 增減數量
+    window.changeQty = function(index, change) {
+      cart[index].quantity += change;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    };
+
+    // 刪除項目
+    window.removeItem = function(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    };
+
+    // 結帳提示
+    checkoutBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('您的購物車是空的，快去挑選喜歡的商品吧！');
+        return;
+      }
+      const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      alert(`感謝您的選購！目前共有 ${cart.length} 種商品，總金額為：NT$ ${totalSum.toLocaleString()}。`);
+    });
+
+    // 綁定商品卡片點擊事件
+    document.querySelectorAll('.product-card').forEach(card => {
+      const id = card.getAttribute('data-id');
+      const title = card.getAttribute('data-title');
+      const price = parseInt(card.getAttribute('data-price'), 10);
+      const img = card.getAttribute('data-img');
+
+      // 點擊「加入購物車」按鈕
+      const addBtn = card.querySelector('.add-to-cart-btn');
+      addBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        addToCart({ id, title, price, img });
+      });
+
+      // 點擊商品標題或圖片提供反饋互動
+      const titleEl = card.querySelector('.product-title');
+      const imgEl = card.querySelector('.img-wrapper');
+      
+      const openDetail = () => {
+        showToast(`查看商品：${title.slice(0, 14)}...`);
+      };
+
+      titleEl.addEventListener('click', openDetail);
+      imgEl.addEventListener('click', openDetail);
+    });
+  </script>
 </body>
 </html>
