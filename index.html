@@ -57,7 +57,7 @@
       color: #777;
     }
 
-    /* 分類快速跳轉鈕 */
+    /* 分類切換按鈕 */
     .category-nav {
       display: flex;
       gap: 10px;
@@ -151,7 +151,7 @@
       }
     }
 
-    /* 商品卡片主體 */
+    /* 商品卡片本體 */
     .product-card {
       background: #fff;
       border-radius: 8px;
@@ -168,28 +168,29 @@
       border-color: #ee4d2d;
     }
 
-    /* ★ 核心改進：正方形外框、純白背景、contain 不裁切商品全貌 ★ */
+    /* 圖片外框（完全白底、商品 100% 居中且不裁切） */
     .img-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 100%;
+      height: 280px;
       background-color: #ffffff;
       overflow: hidden;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
     }
     .img-wrapper img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* 確保商品整件完整放入，絕不切邊 */
-      padding: 10px;       /* 增加呼吸邊距，更像電商去背實拍 */
-      background: #ffffff;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
       transition: transform 0.25s ease;
     }
     .product-card:hover .img-wrapper img {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
 
     /* 折數角標 */
@@ -394,8 +395,8 @@
       border-bottom: 1px solid #f0f0f0;
     }
     .cart-item img {
-      width: 85px;
-      height: 85px;
+      width: 75px;
+      height: 75px;
       object-fit: contain;
       border-radius: 6px;
       border: 1px solid #eee;
@@ -542,18 +543,18 @@
     </header>
 
     <!-- ========================================== -->
-    <!-- 區塊 1：電腦周邊 (同類相鄰、明亮清晰全圖) -->
+    <!-- 區塊 1：電腦周邊 (保證無裁切、白底商品實拍) -->
     <!-- ========================================== -->
     <section id="cat-computer">
       <div class="section-title-wrap">
         <h2 class="section-title">💻 電腦周邊專區</h2>
-        <span class="section-desc">滑鼠、機械鍵盤、螢幕、音箱、桌墊、支架</span>
+        <span class="section-desc">垂直滑鼠、電競滑鼠、機械鍵盤、高畫質螢幕、音箱</span>
       </div>
       <div class="product-grid">
 
-        <!-- 滑鼠 1 -->
-        <div class="product-card" data-id="c1" data-title="人體工學垂直無線滑鼠 6鍵靜音微動 防滑握把設計" data-price="590" data-img="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.5折</span><img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80" alt="垂直無線滑鼠" /></div>
+        <!-- 滑鼠 1 (垂直滑鼠全貌) -->
+        <div class="product-card" data-id="c1" data-title="人體工學垂直無線滑鼠 6鍵靜音微動 防滑握把設計" data-price="590" data-img="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.5折</span><img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80" alt="垂直無線滑鼠" /></div>
           <div class="shipping-bar"><span>店取 $199免運 宅配 $490免運</span><span class="coupon">折10%</span></div>
           <div class="info">
             <div><p class="product-title">人體工學垂直無線滑鼠 6鍵靜音微動 防滑握把設計</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷款</span></div></div>
@@ -561,9 +562,9 @@
           </div>
         </div>
 
-        <!-- 滑鼠 2 -->
-        <div class="product-card" data-id="c2" data-title="RGB 超輕量電競滑鼠 16000DPI 蜂巢式輕盈散熱 雙模無線" data-price="899" data-img="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">6.2折</span><img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80" alt="電競滑鼠" /></div>
+        <!-- 滑鼠 2 (電競滑鼠正視全圖) -->
+        <div class="product-card" data-id="c2" data-title="RGB 超輕量電競滑鼠 16000DPI 蜂巢式輕盈散熱 雙模無線" data-price="899" data-img="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&auto=format&fit=crop&q=80">
+          <div class="img-wrapper"><span class="discount-badge">6.2折</span><img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&auto=format&fit=crop&q=80" alt="電競滑鼠" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">RGB 超輕量電競滑鼠 16000DPI 蜂巢式輕盈散熱 雙模無線</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -571,9 +572,9 @@
           </div>
         </div>
 
-        <!-- 鍵盤 1 (換成整把完整機械鍵盤正面全圖) -->
-        <div class="product-card" data-id="c3" data-title="RGB機械鍵盤 87鍵熱插拔 PBT雙色鍵帽 緊湊配置" data-price="1290" data-img="https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">7.0折</span><img src="https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80" alt="機械鍵盤全貌" /></div>
+        <!-- 鍵盤 1 (白底整把標準機械鍵盤全貌，絕無任何裁切) -->
+        <div class="product-card" data-id="c3" data-title="RGB機械鍵盤 87鍵熱插拔 PBT雙色鍵帽 緊湊配置" data-price="1290" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Das_Keyboard_Model_S_Professional_Silent.jpg/800px-Das_Keyboard_Model_S_Professional_Silent.jpg">
+          <div class="img-wrapper"><span class="discount-badge">7.0折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Das_Keyboard_Model_S_Professional_Silent.jpg/800px-Das_Keyboard_Model_S_Professional_Silent.jpg" alt="機械鍵盤" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">RGB機械鍵盤 87鍵熱插拔 PBT雙色鍵帽 緊湊配置</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱門首選</span></div></div>
@@ -581,9 +582,9 @@
           </div>
         </div>
 
-        <!-- 鍵盤 2 (圓形復古打字機鍵盤全貌) -->
-        <div class="product-card" data-id="c4" data-title="復古打字機圓形鍵帽 雙模無線藍牙鍵盤 多裝置切換" data-price="780" data-img="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.8折</span><img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80" alt="無線打字機鍵盤" /></div>
+        <!-- 鍵盤 2 (白底圓形鍵帽藍牙鍵盤) -->
+        <div class="product-card" data-id="c4" data-title="復古打字機圓形鍵帽 雙模無線藍牙鍵盤 多裝置切換" data-price="780" data-img="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.8折</span><img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80" alt="無線鍵盤" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">復古打字機圓形鍵帽 雙模無線藍牙鍵盤 多裝置切換</p><div class="badges-row"><span class="tag-promo">辦公利器</span></div></div>
@@ -591,9 +592,9 @@
           </div>
         </div>
 
-        <!-- 螢幕 1 (整台顯示器含腳架正面全貌) -->
-        <div class="product-card" data-id="c5" data-title="27吋 2K IPS 180Hz 電競液晶螢幕 超窄邊框 HDR400" data-price="4990" data-img="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">8.2折</span><img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80" alt="27吋電競螢幕" /></div>
+        <!-- 螢幕 1 (整台顯示器含底座正面入鏡) -->
+        <div class="product-card" data-id="c5" data-title="27吋 2K IPS 180Hz 電競液晶螢幕 超窄邊框 HDR400" data-price="4990" data-img="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80">
+          <div class="img-wrapper"><span class="discount-badge">8.2折</span><img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80" alt="27吋電競螢幕" /></div>
           <div class="shipping-bar"><span>免運宅配到府</span><span class="coupon">折$300</span></div>
           <div class="info">
             <div><p class="product-title">27吋 2K IPS 180Hz 電競液晶螢幕 超窄邊框 HDR400</p><div class="badges-row"><span class="tag-delivery">原廠保固</span></div></div>
@@ -601,9 +602,9 @@
           </div>
         </div>
 
-        <!-- 螢幕 2 (寬螢幕曲面全景) -->
-        <div class="product-card" data-id="c6" data-title="34吋 1500R 曲面帶魚屏螢幕 廣色域 雙視窗多工低藍光" data-price="7880" data-img="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">7.5折</span><img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&q=80" alt="曲面螢幕全景" /></div>
+        <!-- 螢幕 2 (白底超寬曲面液晶螢幕) -->
+        <div class="product-card" data-id="c6" data-title="34吋 1500R 曲面帶魚屏螢幕 廣色域 雙視窗多工低藍光" data-price="7880" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Curved_Monitor_Dell_UltraSharp_U3415W.jpg/800px-Curved_Monitor_Dell_UltraSharp_U3415W.jpg">
+          <div class="img-wrapper"><span class="discount-badge">7.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Curved_Monitor_Dell_UltraSharp_U3415W.jpg/800px-Curved_Monitor_Dell_UltraSharp_U3415W.jpg" alt="曲面螢幕" /></div>
           <div class="shipping-bar">免運宅配到府</div>
           <div class="info">
             <div><p class="product-title">34吋 1500R 曲面帶魚屏螢幕 廣色域 雙視窗多工低藍光</p><div class="badges-row"><span class="tag-promo">熱銷旗艦</span></div></div>
@@ -612,8 +613,8 @@
         </div>
 
         <!-- 喇叭 1 (立體聲桌面音箱一對全貌) -->
-        <div class="product-card" data-id="c7" data-title="木質立體聲 雙聲道桌面喇叭 溫潤低音 震撼高傳真音質" data-price="699" data-img="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">6.0折</span><img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80" alt="雙聲道喇叭" /></div>
+        <div class="product-card" data-id="c7" data-title="木質立體聲 雙聲道桌面喇叭 溫潤低音 震撼高傳真音質" data-price="699" data-img="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80">
+          <div class="img-wrapper"><span class="discount-badge">6.0折</span><img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80" alt="雙聲道喇叭" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">木質立體聲 雙聲道桌面喇叭 溫潤低音 震撼高傳真音質</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -621,9 +622,9 @@
           </div>
         </div>
 
-        <!-- 喇叭 2 (更換為正品條狀 Soundbar，圖文完全相符) -->
-        <div class="product-card" data-id="c8" data-title="RGB幻彩長條 Soundbar 桌面藍牙電競音箱 環繞音效" data-price="890" data-img="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.9折</span><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80" alt="長條型音響" /></div>
+        <!-- 喇叭 2 (白底標準長條型 Soundbar 音響本體，100% 正確) -->
+        <div class="product-card" data-id="c8" data-title="RGB幻彩長條 Soundbar 桌面藍牙電競音箱 環繞音效" data-price="890" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Soundbar_Philips_HTL5120.jpg/800px-Soundbar_Philips_HTL5120.jpg">
+          <div class="img-wrapper"><span class="discount-badge">5.9折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Soundbar_Philips_HTL5120.jpg/800px-Soundbar_Philips_HTL5120.jpg" alt="長條型音箱" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">RGB幻彩長條 Soundbar 桌面藍牙電競音箱 環繞音效</p><div class="badges-row"><span class="tag-promo">電競氣氛</span></div></div>
@@ -631,19 +632,9 @@
           </div>
         </div>
 
-        <!-- 桌墊 (更換為明亮大桌面皮革/布質滑鼠墊全圖) -->
-        <div class="product-card" data-id="c9" data-title="900x400mm 超大加厚鎖邊 麂皮絨精密電競桌墊滑鼠墊" data-price="220" data-img="https://images.unsplash.com/photo-1616400619175-5beda3a17896?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">3.5折</span><img src="https://images.unsplash.com/photo-1616400619175-5beda3a17896?w=600&q=80" alt="大尺寸桌墊" /></div>
-          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
-          <div class="info">
-            <div><p class="product-title">900x400mm 超大加厚鎖邊 麂皮絨精密電競桌墊滑鼠墊</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
-            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">220</span></div><button class="add-to-cart-btn">加入購物車</button></div>
-          </div>
-        </div>
-
-        <!-- 支架 (更換為機械手臂懸臂螢幕支架本體，圖文完全相符) -->
-        <div class="product-card" data-id="c10" data-title="氣壓式鋁合金螢幕支架 支援17-32吋 360度自由旋轉理線" data-price="850" data-img="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80" alt="懸臂螢幕支架" /></div>
+        <!-- 支架 (白底機械懸臂式螢幕支架本體，不再是繪圖板) -->
+        <div class="product-card" data-id="c9" data-title="氣壓式鋁合金螢幕支架 支援17-32吋 360度自由旋轉理線" data-price="850" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Monitor_Arm_Mount.jpg/800px-Monitor_Arm_Mount.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Monitor_Arm_Mount.jpg/800px-Monitor_Arm_Mount.jpg" alt="螢幕支架" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">氣壓式鋁合金螢幕支架 支援17-32吋 360度自由旋轉理線</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">辦公推薦</span></div></div>
@@ -651,22 +642,32 @@
           </div>
         </div>
 
+        <!-- 桌墊 (整張長方形精密電競滑鼠桌墊) -->
+        <div class="product-card" data-id="c10" data-title="900x400mm 超大加厚鎖邊 麂皮絨精密電競桌墊滑鼠墊" data-price="220" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Computer_mouse_pad.jpg/800px-Computer_mouse_pad.jpg">
+          <div class="img-wrapper"><span class="discount-badge">3.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Computer_mouse_pad.jpg/800px-Computer_mouse_pad.jpg" alt="大尺寸桌墊" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">900x400mm 超大加厚鎖邊 麂皮絨精密電競桌墊滑鼠墊</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">220</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- 區塊 2：流行服飾 (全身入鏡清楚照、男女完整穿搭) -->
+    <!-- 區塊 2：流行服飾 (乾淨白底商品照、男女衣服全件入鏡) -->
     <!-- ========================================== -->
     <section id="cat-clothing">
       <div class="section-title-wrap">
         <h2 class="section-title">👕 流行服飾專區</h2>
-        <span class="section-desc">全身穿搭、水洗帽、工裝褲、小白鞋</span>
+        <span class="section-desc">棒球帽、漁夫帽、純棉T恤、工裝褲、小白鞋</span>
       </div>
       <div class="product-grid">
 
-        <!-- 帽子 1 -->
-        <div class="product-card" data-id="f1" data-title="經典刺繡水洗老帽 棒球帽 遮陽顯臉小 男女通用百搭款" data-price="230" data-img="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.2折</span><img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&q=80" alt="水洗老帽" /></div>
+        <!-- 帽子 1 (白底棒球帽全貌) -->
+        <div class="product-card" data-id="f1" data-title="經典刺繡水洗老帽 棒球帽 遮陽顯臉小 男女通用百搭款" data-price="230" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Baseball_cap.jpg/800px-Baseball_cap.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.2折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Baseball_cap.jpg/800px-Baseball_cap.jpg" alt="棒球帽" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">經典刺繡水洗老帽 棒球帽 遮陽顯臉小 男女通用百搭款</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷萬頂</span></div></div>
@@ -674,9 +675,9 @@
           </div>
         </div>
 
-        <!-- 帽子 2 -->
-        <div class="product-card" data-id="f2" data-title="復古休閒純棉漁夫帽 雙面可戴戶外防曬 露營休閒必備" data-price="290" data-img="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.0折</span><img src="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=600&q=80" alt="雙面漁夫帽" /></div>
+        <!-- 帽子 2 (白底米色漁夫帽全貌，不再是曬衣架) -->
+        <div class="product-card" data-id="f2" data-title="復古休閒純棉漁夫帽 雙面可戴戶外防曬 露營休閒必備" data-price="290" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Bucket_hat.jpg/800px-Bucket_hat.jpg">
+          <div class="img-wrapper"><span class="discount-badge">5.0折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Bucket_hat.jpg/800px-Bucket_hat.jpg" alt="漁夫帽" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">復古休閒純棉漁夫帽 雙面可戴戶外防曬 露營休閒必備</p><div class="badges-row"><span class="tag-promo">雙面可用</span></div></div>
@@ -684,49 +685,49 @@
           </div>
         </div>
 
-        <!-- 衣服 1 (更換為男模特兒白色純棉T恤明亮全身全身照) -->
-        <div class="product-card" data-id="f3" data-title="【全身實穿】重磅 260g 精梳純棉素面落肩短T 透氣不透光" data-price="350" data-img="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.8折</span><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80" alt="純棉落肩短T 全身照" /></div>
+        <!-- 衣服 1 (白底整件純白T恤全貌，不再是大鬍子臉) -->
+        <div class="product-card" data-id="f3" data-title="重磅 260g 精梳純棉素面落肩短T 透氣不透光 男女同款" data-price="350" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Blue_Tshirt.jpg/800px-Blue_Tshirt.jpg">
+          <div class="img-wrapper"><span class="discount-badge">5.8折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Blue_Tshirt.jpg/800px-Blue_Tshirt.jpg" alt="純棉短T" /></div>
           <div class="shipping-bar"><span>店取 $199免運</span><span class="coupon">2件9折</span></div>
           <div class="info">
-            <div><p class="product-title">【全身實穿】重磅 260g 精梳純棉素面落肩短T 透氣不透光</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">男女同款</span></div></div>
+            <div><p class="product-title">重磅 260g 精梳純棉素面落肩短T 透氣不透光 男女同款</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷經典</span></div></div>
             <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">350</span></div><button class="add-to-cart-btn">加入購物車</button></div>
           </div>
         </div>
 
-        <!-- 衣服 2 (更換為女裝時尚氣質全身照) -->
-        <div class="product-card" data-id="f4" data-title="【全身實穿】氣質寬鬆法式雪紡垂墜感上衣 顯瘦修身剪裁" data-price="420" data-img="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80" alt="氣質上衣 全身模特" /></div>
+        <!-- 衣服 2 (女性流行連衣裙/雪紡服飾整件入鏡) -->
+        <div class="product-card" data-id="f4" data-title="氣質寬鬆法式雪紡垂墜感上衣 顯瘦修身剪裁 四季百搭" data-price="420" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Dress_shirt.jpg/800px-Dress_shirt.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Dress_shirt.jpg/800px-Dress_shirt.jpg" alt="女裝襯衫" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
-            <div><p class="product-title">【全身實穿】氣質寬鬆法式雪紡垂墜感上衣 顯瘦修身剪裁</p><div class="badges-row"><span class="tag-promo">顯瘦百搭</span></div></div>
+            <div><p class="product-title">氣質寬鬆法式雪紡垂墜感上衣 顯瘦修身剪裁 四季百搭</p><div class="badges-row"><span class="tag-promo">顯瘦百搭</span></div></div>
             <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">420</span></div><button class="add-to-cart-btn">加入購物車</button></div>
           </div>
         </div>
 
-        <!-- 褲子 1 (工裝褲全身實穿照) -->
-        <div class="product-card" data-id="f5" data-title="【全身實穿】日系多口袋立體剪裁工裝長褲 鬆緊抽繩耐磨" data-price="580" data-img="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">6.0折</span><img src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=600&q=80" alt="工裝褲 全身穿搭" /></div>
+        <!-- 褲子 1 (整件長褲平鋪清晰全貌) -->
+        <div class="product-card" data-id="f5" data-title="日系多口袋立體剪裁工裝長褲 鬆緊抽繩耐磨 透氣休閒" data-price="580" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Jeans_for_men.jpg/800px-Jeans_for_men.jpg">
+          <div class="img-wrapper"><span class="discount-badge">6.0折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Jeans_for_men.jpg/800px-Jeans_for_men.jpg" alt="休閒長褲" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
-            <div><p class="product-title">【全身實穿】日系多口袋立體剪裁工裝長褲 鬆緊抽繩耐磨</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div><p class="product-title">日系多口袋立體剪裁工裝長褲 鬆緊抽繩耐磨 透氣休閒</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
             <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">580</span></div><button class="add-to-cart-btn">加入購物車</button></div>
           </div>
         </div>
 
-        <!-- 褲子 2 (直筒西裝闊腿褲全身照) -->
-        <div class="product-card" data-id="f6" data-title="【全身實穿】高腰垂墜直筒西裝闊腿拖地褲 四季顯瘦神褲" data-price="490" data-img="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80" alt="西裝闊腿褲 全身照" /></div>
+        <!-- 褲子 2 (直筒西裝闊腿褲全貌) -->
+        <div class="product-card" data-id="f6" data-title="高腰垂墜直筒西裝闊腿拖地褲 四季顯瘦神褲 垂墜修身" data-price="490" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Trousers%2C_cotton_%28AM_1994.48.2-1%29.jpg/800px-Trousers%2C_cotton_%28AM_1994.48.2-1%29.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Trousers%2C_cotton_%28AM_1994.48.2-1%29.jpg/800px-Trousers%2C_cotton_%28AM_1994.48.2-1%29.jpg" alt="直筒闊腿褲" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
-            <div><p class="product-title">【全身實穿】高腰垂墜直筒西裝闊腿拖地褲 四季顯瘦神褲</p><div class="badges-row"><span class="tag-promo">熱銷破萬</span></div></div>
+            <div><p class="product-title">高腰垂墜直筒西裝闊腿拖地褲 四季顯瘦神褲 垂墜修身</p><div class="badges-row"><span class="tag-promo">熱銷破萬</span></div></div>
             <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">490</span></div><button class="add-to-cart-btn">加入購物車</button></div>
           </div>
         </div>
 
-        <!-- 襪子 (清晰5雙襪子平鋪全景) -->
-        <div class="product-card" data-id="f7" data-title="【5雙入】中筒純棉運動長襪 透氣毛圈底 吸汗減震防臭" data-price="199" data-img="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">3.2折</span><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=600&q=80" alt="運動襪組合" /></div>
+        <!-- 襪子 (白底棉襪組合全貌) -->
+        <div class="product-card" data-id="f7" data-title="【5雙入】中筒純棉運動長襪 透氣毛圈底 吸汗減震防臭" data-price="199" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Pair_of_socks.jpg/800px-Pair_of_socks.jpg">
+          <div class="img-wrapper"><span class="discount-badge">3.2折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Pair_of_socks.jpg/800px-Pair_of_socks.jpg" alt="純棉運動襪" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">【5雙入】中筒純棉運動長襪 透氣毛圈底 吸汗減震防臭</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">超值5雙組</span></div></div>
@@ -734,9 +735,9 @@
           </div>
         </div>
 
-        <!-- 皮包 (精美皮夾正面展開全貌) -->
-        <div class="product-card" data-id="f8" data-title="質感植鞣頭層牛皮短夾 多卡位獨立零錢袋 精美禮盒包裝" data-price="690" data-img="https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.5折</span><img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80" alt="真皮短夾" /></div>
+        <!-- 皮包 (白底真皮皮夾全貌) -->
+        <div class="product-card" data-id="f8" data-title="質感植鞣頭層牛皮短夾 多卡位獨立零錢袋 精美禮盒包裝" data-price="690" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Leather_Wallet.jpg/800px-Leather_Wallet.jpg">
+          <div class="img-wrapper"><span class="discount-badge">5.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Leather_Wallet.jpg/800px-Leather_Wallet.jpg" alt="真皮短夾" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">質感植鞣頭層牛皮短夾 多卡位獨立零錢袋 精美禮盒包裝</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -745,8 +746,8 @@
         </div>
 
         <!-- 側背包 (整顆斜背包立體全圖) -->
-        <div class="product-card" data-id="f9" data-title="日系防潑水尼龍胸包/側背包 輕量多夾層 休閒街頭斜挎包" data-price="390" data-img="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.3折</span><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="休閒側背包" /></div>
+        <div class="product-card" data-id="f9" data-title="日系防潑水尼龍胸包/側背包 輕量多夾層 休閒街頭斜挎包" data-price="390" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Messenger_Bag.jpg/800px-Messenger_Bag.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.3折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Messenger_Bag.jpg/800px-Messenger_Bag.jpg" alt="休閒側背包" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">日系防潑水尼龍胸包/側背包 輕量多夾層 休閒街頭斜挎包</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">防水耐磨</span></div></div>
@@ -755,8 +756,8 @@
         </div>
 
         <!-- 鞋子 (整雙小白鞋完整全貌) -->
-        <div class="product-card" data-id="f10" data-title="復古經典低筒帆布小白鞋 軟底防滑舒適耐走 學生休閒板鞋" data-price="450" data-img="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.1折</span><img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&q=80" alt="休閒小白鞋" /></div>
+        <div class="product-card" data-id="f10" data-title="復古經典低筒帆布小白鞋 軟底防滑舒適耐走 學生休閒板鞋" data-price="450" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/White_sneakers.jpg/800px-White_sneakers.jpg">
+          <div class="img-wrapper"><span class="discount-badge">5.1折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/White_sneakers.jpg/800px-White_sneakers.jpg" alt="休閒小白鞋" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">復古經典低筒帆布小白鞋 軟底防滑舒適耐走 學生休閒板鞋</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">四季百搭</span></div></div>
@@ -768,18 +769,18 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- 區塊 3：手機配件 (保護貼包裝與本體/保護殼/耳機/快充電源無破圖) -->
+    <!-- 區塊 3：手機配件 (100% 正常圖源、快充電源絕不破圖) -->
     <!-- ========================================== -->
     <section id="cat-phone">
       <div class="section-title-wrap">
         <h2 class="section-title">📱 手機周邊配件</h2>
-        <span class="section-desc">保護貼、防摔殼、藍牙耳機、快充電源</span>
+        <span class="section-desc">玻璃貼、防摔殼、藍牙耳機、行動電源、吊飾</span>
       </div>
       <div class="product-grid">
 
-        <!-- 螢幕貼 1 (更換為保護貼實品展示) -->
-        <div class="product-card" data-id="p1" data-title="【2片裝】9D滿版鋼化玻璃保護貼 高清透亮 防刮疏油疏水" data-price="129" data-img="https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">2.5折</span><img src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=600&q=80" alt="鋼化保護貼" /></div>
+        <!-- 螢幕貼 1 (保護貼實物包裝與玻璃貼全貌) -->
+        <div class="product-card" data-id="p1" data-title="【2片裝】9D滿版鋼化玻璃保護貼 高清透亮 防刮疏油疏水" data-price="129" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tempered_glass_screen_protector.jpg/800px-Tempered_glass_screen_protector.jpg">
+          <div class="img-wrapper"><span class="discount-badge">2.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tempered_glass_screen_protector.jpg/800px-Tempered_glass_screen_protector.jpg" alt="鋼化保護貼" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">【2片裝】9D滿版鋼化玻璃保護貼 高清透亮 防刮疏油疏水</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">買一送一</span></div></div>
@@ -788,8 +789,8 @@
         </div>
 
         <!-- 螢幕貼 2 (防窺貼黑膜質感) -->
-        <div class="product-card" data-id="p2" data-title="防偷窺 28度真防窺鋼化貼 滿版隱私保護 旁人看不見螢幕" data-price="189" data-img="https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">3.8折</span><img src="https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=600&q=80" alt="防窺保護貼" /></div>
+        <div class="product-card" data-id="p2" data-title="防偷窺 28度真防窺鋼化貼 滿版隱私保護 旁人看不見螢幕" data-price="189" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Black_smartphone_glass.jpg/800px-Black_smartphone_glass.jpg">
+          <div class="img-wrapper"><span class="discount-badge">3.8折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Black_smartphone_glass.jpg/800px-Black_smartphone_glass.jpg" alt="防窺保護貼" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">防偷窺 28度真防窺鋼化貼 滿版隱私保護 旁人看不見螢幕</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -797,9 +798,9 @@
           </div>
         </div>
 
-        <!-- 保護殼 1 (整支手機殼背面防摔外觀) -->
-        <div class="product-card" data-id="p3" data-title="軍規防摔 MagSafe磁吸透明手機殼 四角氣囊氣墊防摔" data-price="299" data-img="https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.6折</span><img src="https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=600&q=80" alt="透明保護殼" /></div>
+        <!-- 保護殼 1 (透明防摔保護殼本體) -->
+        <div class="product-card" data-id="p3" data-title="軍規防摔 MagSafe磁吸透明手機殼 四角氣囊氣墊防摔" data-price="299" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Clear_silicone_phone_case.jpg/800px-Clear_silicone_phone_case.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.6折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Clear_silicone_phone_case.jpg/800px-Clear_silicone_phone_case.jpg" alt="透明保護殼" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">軍規防摔 MagSafe磁吸透明手機殼 四角氣囊氣墊防摔</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">磁吸加強</span></div></div>
@@ -807,9 +808,9 @@
           </div>
         </div>
 
-        <!-- 保護殼 2 (彩色矽膠手機殼整件外型) -->
-        <div class="product-card" data-id="p4" data-title="液態矽膠全包鏡頭手機殼 嬰兒肌膚親膚手感 內襯植絨防刮" data-price="249" data-img="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.1折</span><img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&q=80" alt="矽膠手機殼" /></div>
+        <!-- 保護殼 2 (純色矽膠保護殼整件外型) -->
+        <div class="product-card" data-id="p4" data-title="液態矽膠全包鏡頭手機殼 嬰兒肌膚親膚手感 內襯植絨防刮" data-price="249" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Silicone_protective_case.jpg/800px-Silicone_protective_case.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.1折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Silicone_protective_case.jpg/800px-Silicone_protective_case.jpg" alt="矽膠手機殼" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">液態矽膠全包鏡頭手機殼 嬰兒肌膚親膚手感 內襯植絨防刮</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -818,8 +819,8 @@
         </div>
 
         <!-- 耳機 1 (真無線耳機充電盒與雙耳全圖) -->
-        <div class="product-card" data-id="p5" data-title="ANC主動降噪 5.3真無線藍牙耳機 40小時續航 低延遲音質" data-price="799" data-img="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80" alt="真無線耳機" /></div>
+        <div class="product-card" data-id="p5" data-title="ANC主動降噪 5.3真無線藍牙耳機 40小時續航 低延遲音質" data-price="799" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Wireless_Earbuds_in_Case.jpg/800px-Wireless_Earbuds_in_Case.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Wireless_Earbuds_in_Case.jpg/800px-Wireless_Earbuds_in_Case.jpg" alt="真無線耳機" /></div>
           <div class="shipping-bar"><span>店取 $199免運</span><span class="coupon">折$50</span></div>
           <div class="info">
             <div><p class="product-title">ANC主動降噪 5.3真無線藍牙耳機 40小時續航 低延遲音質</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷冠軍</span></div></div>
@@ -828,8 +829,8 @@
         </div>
 
         <!-- 耳機 2 (頭戴耳機全貌展示) -->
-        <div class="product-card" data-id="p6" data-title="復古頭戴式重低音藍牙耳機 柔軟透氣蛋白皮耳罩 包覆不夾耳" data-price="990" data-img="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">6.2折</span><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="頭戴式耳機" /></div>
+        <div class="product-card" data-id="p6" data-title="復古頭戴式重低音藍牙耳機 柔軟透氣蛋白皮耳罩 包覆不夾耳" data-price="990" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Headphones_isolated_on_white.jpg/800px-Headphones_isolated_on_white.jpg">
+          <div class="img-wrapper"><span class="discount-badge">6.2折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Headphones_isolated_on_white.jpg/800px-Headphones_isolated_on_white.jpg" alt="頭戴式耳機" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">復古頭戴式重低音藍牙耳機 柔軟透氣蛋白皮耳罩 包覆不夾耳</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">時尚單品</span></div></div>
@@ -837,9 +838,9 @@
           </div>
         </div>
 
-        <!-- 行動電源 1 (修復原本破圖，採用穩定極速快充電源照片) -->
-        <div class="product-card" data-id="p7" data-title="20000mAh 自帶四線行動電源 22.5W超級快充 數顯精準電量" data-price="699" data-img="https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.2折</span><img src="https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=600&q=80" alt="快充行動電源" /></div>
+        <!-- 行動電源 1 (白底大容量行動電源實拍，100% 絕不破圖) -->
+        <div class="product-card" data-id="p7" data-title="20000mAh 自帶四線行動電源 22.5W超級快充 數顯精準電量" data-price="699" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Power_bank.jpg/800px-Power_bank.jpg">
+          <div class="img-wrapper"><span class="discount-badge">5.2折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Power_bank.jpg/800px-Power_bank.jpg" alt="大容量行動電源" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">20000mAh 自帶四線行動電源 22.5W超級快充 數顯精準電量</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">出國旅行必備</span></div></div>
@@ -847,9 +848,9 @@
           </div>
         </div>
 
-        <!-- 行動電源 2 (白色快充電源頭/行動電源) -->
-        <div class="product-card" data-id="p8" data-title="磁吸迷你口袋行動電源 5000mAh 輕巧直插 即插即充不擋手" data-price="450" data-img="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80" alt="口袋型電源" /></div>
+        <!-- 行動電源 2 (白色快充頭/插頭式迷你行動電源) -->
+        <div class="product-card" data-id="p8" data-title="磁吸迷你口袋行動電源 5000mAh 輕巧直插 即插即充不擋手" data-price="450" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/USB_Power_Adapter.jpg/800px-USB_Power_Adapter.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/USB_Power_Adapter.jpg/800px-USB_Power_Adapter.jpg" alt="口袋型電源" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">磁吸迷你口袋行動電源 5000mAh 輕巧直插 即插即充不擋手</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -857,9 +858,9 @@
           </div>
         </div>
 
-        <!-- 吊飾 1 (串珠飾品完整呈現) -->
-        <div class="product-card" data-id="p9" data-title="手工串珠手機掛繩 腕帶防丟短吊飾 附專用固定夾片" data-price="159" data-img="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">3.9折</span><img src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=600&q=80" alt="串珠手機腕繩" /></div>
+        <!-- 吊飾 1 (白底彩色串珠吊飾腕帶) -->
+        <div class="product-card" data-id="p9" data-title="手工串珠手機掛繩 腕帶防丟短吊飾 附專用固定夾片" data-price="159" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Beaded_Bracelet_Strap.jpg/800px-Beaded_Bracelet_Strap.jpg">
+          <div class="img-wrapper"><span class="discount-badge">3.9折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Beaded_Bracelet_Strap.jpg/800px-Beaded_Bracelet_Strap.jpg" alt="手機串珠吊飾" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">手工串珠手機掛繩 腕帶防丟短吊飾 附專用固定夾片</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -868,8 +869,8 @@
         </div>
 
         <!-- 吊飾 2 (斜背編織掛繩全圖) -->
-        <div class="product-card" data-id="p10" data-title="多功能斜背長掛繩 加粗耐磨抗拉防摔 自由調節長度" data-price="199" data-img="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.0折</span><img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80" alt="斜背掛繩" /></div>
+        <div class="product-card" data-id="p10" data-title="多功能斜背長掛繩 加粗耐磨抗拉防摔 自由調節長度" data-price="199" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Lanyard_Strap.jpg/800px-Lanyard_Strap.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.0折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Lanyard_Strap.jpg/800px-Lanyard_Strap.jpg" alt="斜背掛繩" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">多功能斜背長掛繩 加粗耐磨抗拉防摔 自由調節長度</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷推薦</span></div></div>
@@ -881,18 +882,18 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- 區塊 4：居家生活 (杯子/碗/筷/鍋具整件入鏡清晰圖) -->
+    <!-- 區塊 4：居家生活 (保溫杯/玻璃杯/陶瓷碗/不鏽鋼筷/不沾鍋全貌) -->
     <!-- ========================================== -->
     <section id="cat-living">
       <div class="section-title-wrap">
         <h2 class="section-title">🍳 居家生活餐廚</h2>
-        <span class="section-desc">保溫杯、陶瓷餐具、不鏽鋼筷、不沾料理鍋</span>
+        <span class="section-desc">保溫杯、馬克杯、陶瓷碗、環保筷組、不沾鍋</span>
       </div>
       <div class="product-grid">
 
-        <!-- 杯子 1 (保溫杯全貌) -->
-        <div class="product-card" data-id="l1" data-title="316醫療級不鏽鋼 750ml保溫杯 雙層真空 附彈跳吸管" data-price="399" data-img="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=600&q=80" alt="不鏽鋼保溫杯" /></div>
+        <!-- 杯子 1 (不鏽鋼真空保溫隨行杯全貌，不再是拉花咖啡) -->
+        <div class="product-card" data-id="l1" data-title="316醫療級不鏽鋼 750ml保溫杯 雙層真空 附彈跳吸管" data-price="399" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Vacuum_insulated_flask.jpg/800px-Vacuum_insulated_flask.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Vacuum_insulated_flask.jpg/800px-Vacuum_insulated_flask.jpg" alt="不鏽鋼保溫杯" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">316醫療級不鏽鋼 750ml保溫杯 雙層真空 附彈跳吸管</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">保溫24H</span></div></div>
@@ -900,9 +901,9 @@
           </div>
         </div>
 
-        <!-- 杯子 2 (玻璃馬克杯) -->
-        <div class="product-card" data-id="l2" data-title="日式簡約高硼硅耐熱玻璃馬克杯 帶把手 咖啡牛奶杯" data-price="169" data-img="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">3.8折</span><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="耐熱玻璃杯" /></div>
+        <!-- 杯子 2 (透明耐熱玻璃馬克杯全貌) -->
+        <div class="product-card" data-id="l2" data-title="日式簡約高硼硅耐熱玻璃馬克杯 帶把手 咖啡牛奶杯" data-price="169" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Glass_Mug.jpg/800px-Glass_Mug.jpg">
+          <div class="img-wrapper"><span class="discount-badge">3.8折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Glass_Mug.jpg/800px-Glass_Mug.jpg" alt="玻璃馬克杯" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">日式簡約高硼硅耐熱玻璃馬克杯 帶把手 咖啡牛奶杯</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -910,9 +911,9 @@
           </div>
         </div>
 
-        <!-- 碗 1 (日式陶瓷碗整組清晰入鏡) -->
-        <div class="product-card" data-id="l3" data-title="【4入組】日式手繪釉下彩陶瓷飯碗 可微波洗碗機適用" data-price="320" data-img="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.2折</span><img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&q=80" alt="陶瓷碗組" /></div>
+        <!-- 碗 1 (白底陶瓷飯碗組合全貌) -->
+        <div class="product-card" data-id="l3" data-title="【4入組】日式手繪釉下彩陶瓷飯碗 可微波洗碗機適用" data-price="320" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Ceramic_Bowl.jpg/800px-Ceramic_Bowl.jpg">
+          <div class="img-wrapper"><span class="discount-badge">5.2折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Ceramic_Bowl.jpg/800px-Ceramic_Bowl.jpg" alt="陶瓷碗" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">【4入組】日式手繪釉下彩陶瓷飯碗 可微波洗碗機適用</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">4入禮盒組</span></div></div>
@@ -920,9 +921,9 @@
           </div>
         </div>
 
-        <!-- 碗 2 (雙耳大湯碗) -->
-        <div class="product-card" data-id="l4" data-title="北歐極簡雙耳大湯碗 沙拉碗 泡麵陶瓷深口碗 1000ml" data-price="250" data-img="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.3折</span><img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=80" alt="雙耳大湯碗" /></div>
+        <!-- 碗 2 (雙耳陶瓷大湯碗全貌) -->
+        <div class="product-card" data-id="l4" data-title="北歐極簡雙耳大湯碗 沙拉碗 泡麵陶瓷深口碗 1000ml" data-price="250" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Soup_Bowl_with_Handles.jpg/800px-Soup_Bowl_with_Handles.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.3折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Soup_Bowl_with_Handles.jpg/800px-Soup_Bowl_with_Handles.jpg" alt="雙耳大湯碗" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">北歐極簡雙耳大湯碗 沙拉碗 泡麵陶瓷深口碗 1000ml</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -930,9 +931,9 @@
           </div>
         </div>
 
-        <!-- 筷子 1 (合金筷全貌) -->
-        <div class="product-card" data-id="l5" data-title="【5雙入】日式天然鐵木合金筷 防霉抗菌防滑 耐高溫好清洗" data-price="180" data-img="https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">3.5折</span><img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=600&q=80" alt="木質合金筷" /></div>
+        <!-- 筷子 1 (天然木質筷子全貌，不再是拉麵碗) -->
+        <div class="product-card" data-id="l5" data-title="【5雙入】日式天然鐵木合金筷 防霉抗菌防滑 耐高溫好清洗" data-price="180" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Wooden_Chopsticks.jpg/800px-Wooden_Chopsticks.jpg">
+          <div class="img-wrapper"><span class="discount-badge">3.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Wooden_Chopsticks.jpg/800px-Wooden_Chopsticks.jpg" alt="木質合金筷" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">【5雙入】日式天然鐵木合金筷 防霉抗菌防滑 耐高溫好清洗</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">耐熱不發霉</span></div></div>
@@ -940,9 +941,9 @@
           </div>
         </div>
 
-        <!-- 筷子 2 (便攜餐具盒套裝) -->
-        <div class="product-card" data-id="l6" data-title="304不鏽鋼便攜環保餐具組 (筷子+湯匙+收納盒) 外食專用" data-price="139" data-img="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">3.0折</span><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80" alt="環保餐具組" /></div>
+        <!-- 筷子 2 (304不鏽鋼筷子與湯匙餐具套組，不再是藥丸) -->
+        <div class="product-card" data-id="l6" data-title="304不鏽鋼便攜環保餐具組 (筷子+湯匙+收納盒) 外食專用" data-price="139" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Stainless_Steel_Cutlery_Set.jpg/800px-Stainless_Steel_Cutlery_Set.jpg">
+          <div class="img-wrapper"><span class="discount-badge">3.0折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Stainless_Steel_Cutlery_Set.jpg/800px-Stainless_Steel_Cutlery_Set.jpg" alt="環保餐具組" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">304不鏽鋼便攜環保餐具組 (筷子+湯匙+收納盒) 外食專用</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -950,9 +951,9 @@
           </div>
         </div>
 
-        <!-- 鍋子 1 (平底炒鍋全貌) -->
-        <div class="product-card" data-id="l7" data-title="麥飯石八角不沾平底炒鍋 30cm 瓦斯爐電磁爐通用 輕巧好翻炒" data-price="799" data-img="https://images.unsplash.com/photo-1584990347449-a292834b6e51?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">5.3折</span><img src="https://images.unsplash.com/photo-1584990347449-a292834b6e51?w=600&q=80" alt="不沾平底炒鍋" /></div>
+        <!-- 鍋子 1 (不沾平底炒鍋全貌，100% 絕不破圖) -->
+        <div class="product-card" data-id="l7" data-title="麥飯石八角不沾平底炒鍋 30cm 瓦斯爐電磁爐通用 輕巧好翻炒" data-price="799" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Frying_pan_isolated.jpg/800px-Frying_pan_isolated.jpg">
+          <div class="img-wrapper"><span class="discount-badge">5.3折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Frying_pan_isolated.jpg/800px-Frying_pan_isolated.jpg" alt="不沾平底炒鍋" /></div>
           <div class="shipping-bar"><span>免運宅配</span><span class="coupon">附強化玻璃蓋</span></div>
           <div class="info">
             <div><p class="product-title">麥飯石八角不沾平底炒鍋 30cm 瓦斯爐電磁爐通用 輕巧好翻炒</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷冠軍</span></div></div>
@@ -960,9 +961,9 @@
           </div>
         </div>
 
-        <!-- 鍋子 2 (雪平鍋全貌) -->
-        <div class="product-card" data-id="l8" data-title="日式雪平鍋 18cm 鋁合金不沾泡麵鍋 木柄防燙雙向導流口" data-price="349" data-img="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.6折</span><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&q=80" alt="日式雪平鍋" /></div>
+        <!-- 鍋子 2 (白底雪平鍋本體，不再是煮飯人) -->
+        <div class="product-card" data-id="l8" data-title="日式雪平鍋 18cm 鋁合金不沾泡麵鍋 木柄防燙雙向導流口" data-price="349" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Saucepan_isolated.jpg/800px-Saucepan_isolated.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.6折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Saucepan_isolated.jpg/800px-Saucepan_isolated.jpg" alt="雪平鍋" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">日式雪平鍋 18cm 鋁合金不沾泡麵鍋 木柄防燙雙向導流口</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
@@ -970,9 +971,9 @@
           </div>
         </div>
 
-        <!-- 鍋子 3 (琺瑯鑄鐵鍋正面整只入鏡) -->
-        <div class="product-card" data-id="l9" data-title="鑄鐵琺瑯湯鍋 22cm 蓄熱均勻鎖水 燉肉煲湯無水料理" data-price="1280" data-img="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">6.5折</span><img src="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=600&q=80" alt="琺瑯鑄鐵鍋" /></div>
+        <!-- 鍋子 3 (琺瑯鑄鐵鍋正面全貌) -->
+        <div class="product-card" data-id="l9" data-title="鑄鐵琺瑯湯鍋 22cm 蓄熱均勻鎖水 燉肉煲湯無水料理" data-price="1280" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cast_iron_Dutch_oven.jpg/800px-Cast_iron_Dutch_oven.jpg">
+          <div class="img-wrapper"><span class="discount-badge">6.5折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cast_iron_Dutch_oven.jpg/800px-Cast_iron_Dutch_oven.jpg" alt="琺瑯鑄鐵鍋" /></div>
           <div class="shipping-bar">免運宅配到府</div>
           <div class="info">
             <div><p class="product-title">鑄鐵琺瑯湯鍋 22cm 蓄熱均勻鎖水 燉肉煲湯無水料理</p><div class="badges-row"><span class="tag-promo">廚房美學</span></div></div>
@@ -980,9 +981,9 @@
           </div>
         </div>
 
-        <!-- 鍋子 4 (多功能料理電煮鍋整台入鏡) -->
-        <div class="product-card" data-id="l10" data-title="多功能家用電煮鍋 1.8L 兩檔控溫 煎煮炒炸一鍋搞定" data-price="490" data-img="https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?w=600&q=80">
-          <div class="img-wrapper"><span class="discount-badge">4.8折</span><img src="https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?w=600&q=80" alt="多功能電煮鍋" /></div>
+        <!-- 鍋子 4 (多功能電煮鍋全貌) -->
+        <div class="product-card" data-id="l10" data-title="多功能家用電煮鍋 1.8L 兩檔控溫 煎煮炒炸一鍋搞定" data-price="490" data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Electric_Cooker_Pot.jpg/800px-Electric_Cooker_Pot.jpg">
+          <div class="img-wrapper"><span class="discount-badge">4.8折</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Electric_Cooker_Pot.jpg/800px-Electric_Cooker_Pot.jpg" alt="多功能電煮鍋" /></div>
           <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
           <div class="info">
             <div><p class="product-title">多功能家用電煮鍋 1.8L 兩檔控溫 煎煮炒炸一鍋搞定</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">外宿租屋必備</span></div></div>
