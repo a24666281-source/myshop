@@ -3,62 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>商品展示牆與購物車</title>
+  <title>蝦皮嚴選旗艦商城</title>
   <style>
-    /* 全域基礎設定 */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
     }
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       background-color: #f6f6f6;
       color: #222;
-      padding: 30px 20px;
+      padding: 24px 16px 80px;
     }
 
-    /* 主容器 */
     .container {
       max-width: 1360px;
       margin: 0 auto;
     }
 
-    /* 頂部導航/標題區 */
-    .header-bar {
+    /* 頂部固定/吸頂導航列 */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
       margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 2px solid #ee4d2d;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
     }
-    .header-left {
+    .header-brand {
       display: flex;
       align-items: baseline;
-      gap: 14px;
+      gap: 12px;
     }
-    .header-bar h1 {
-      font-size: 28px;
+    .header-brand h1 {
+      font-size: 26px;
       color: #ee4d2d;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.5px;
     }
-    .header-subtitle {
-      font-size: 15px;
-      color: #666;
+    .header-brand span {
+      font-size: 14px;
+      color: #777;
+    }
+
+    /* 分類快速切換按鈕組 */
+    .category-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      text-decoration: none;
+      background: #f0f0f0;
+      color: #444;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: #ffebe7;
+      color: #ee4d2d;
     }
 
     /* 購物車按鈕 */
     .cart-btn {
-      position: relative;
       background: #ee4d2d;
       color: #fff;
       border: none;
       outline: none;
-      padding: 12px 22px;
+      padding: 10px 20px;
       border-radius: 8px;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -71,13 +99,10 @@
       background: #d73211;
       transform: translateY(-2px);
     }
-    .cart-btn:active {
-      transform: translateY(0);
-    }
     .cart-badge {
       background: #fff;
       color: #ee4d2d;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       border-radius: 12px;
       padding: 2px 8px;
@@ -85,7 +110,29 @@
       text-align: center;
     }
 
-    /* 1 行 3 個商品網格 (平板 2 欄，手機 1 欄) */
+    /* 區塊標題 */
+    .section-title-wrap {
+      margin: 36px 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #ee4d2d;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 13px;
+      color: #888;
+    }
+
+    /* 1 行 3 個商品網格 (大畫面) */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -100,7 +147,7 @@
     @media (max-width: 580px) {
       .product-grid {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 16px;
       }
     }
 
@@ -121,7 +168,7 @@
       border-color: #ee4d2d;
     }
 
-    /* 圖片外框（正方形） */
+    /* 圖片外框（正方形放大） */
     .img-wrapper {
       position: relative;
       width: 100%;
@@ -150,9 +197,9 @@
       right: 0;
       background: #ffebe7;
       color: #ee4d2d;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
-      padding: 6px 10px;
+      padding: 5px 10px;
       border-bottom-left-radius: 8px;
       z-index: 2;
     }
@@ -161,9 +208,9 @@
     .shipping-bar {
       background-color: #005a5b;
       color: #8df0e7;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
-      padding: 8px 14px;
+      padding: 7px 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -173,24 +220,22 @@
       background: #ff5722;
       color: #fff;
       border-radius: 3px;
-      padding: 2px 6px;
-      font-size: 12px;
+      padding: 1px 5px;
+      font-size: 11px;
       font-weight: 700;
     }
 
-    /* 卡片內容資訊區 */
+    /* 卡片內容區 */
     .info {
       padding: 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
     }
-
-    /* 商品標題（顯眼、清晰） */
     .product-title {
-      font-size: 17px;
+      font-size: 16px;
       line-height: 24px;
       height: 48px;
       color: #222;
@@ -212,13 +257,13 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 4px;
     }
     .tag-delivery {
       border: 1px solid #26aa99;
       color: #26aa99;
       font-size: 12px;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 4px;
       background: #fff;
       font-weight: 600;
@@ -227,7 +272,7 @@
       border: 1px solid #ee4d2d;
       color: #ee4d2d;
       font-size: 12px;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 4px;
       background: #fff;
       font-weight: 600;
@@ -244,7 +289,7 @@
     .price-row {
       display: flex;
       align-items: baseline;
-      gap: 3px;
+      gap: 2px;
       color: #ee4d2d;
     }
     .price-currency {
@@ -252,25 +297,20 @@
       font-weight: 700;
     }
     .price-amount {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       line-height: 1;
     }
-
-    /* 加入購物車按鈕 */
     .add-to-cart-btn {
       background: #fff;
       color: #ee4d2d;
       border: 1.5px solid #ee4d2d;
-      padding: 8px 14px;
+      padding: 7px 13px;
       font-size: 14px;
       font-weight: 700;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
     .add-to-cart-btn:hover {
       background: #ee4d2d;
@@ -297,7 +337,7 @@
     .cart-drawer {
       position: fixed;
       top: 0;
-      right: -450px;
+      right: -460px;
       width: 440px;
       max-width: 90%;
       height: 100%;
@@ -331,9 +371,6 @@
       color: #777;
       line-height: 1;
     }
-    .cart-close-btn:hover {
-      color: #000;
-    }
     .cart-items-list {
       flex: 1;
       overflow-y: auto;
@@ -348,22 +385,20 @@
       margin-top: 100px;
       font-size: 16px;
     }
-
-    /* 購物車內部卡片（尺寸放大、字體放大） */
     .cart-item {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       align-items: center;
-      padding-bottom: 16px;
+      padding-bottom: 14px;
       border-bottom: 1px solid #f0f0f0;
     }
-    /* 購物車縮圖：大一號 (85x85px) */
+    /* 購物車縮圖大一號 (85x85px) */
     .cart-item img {
       width: 85px;
       height: 85px;
       object-fit: cover;
       border-radius: 6px;
-      border: 1px solid #ebebeb;
+      border: 1px solid #eee;
       background: #f7f7f7;
       flex-shrink: 0;
     }
@@ -371,50 +406,41 @@
       flex: 1;
       min-width: 0;
     }
-    /* 購物車商品名稱：放大且加粗 */
     .cart-item-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
-      line-height: 22px;
+      line-height: 20px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       color: #222;
     }
-    /* 購物車商品價格：放大至 18px */
     .cart-item-price {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: #ee4d2d;
     }
     .cart-item-controls {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 8px;
     }
     .qty-btn {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border: 1px solid #ccc;
       background: #f8f8f8;
       cursor: pointer;
       border-radius: 4px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s;
-    }
-    .qty-btn:hover {
-      background: #eaeaea;
     }
     .qty-val {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
-      min-width: 24px;
+      min-width: 20px;
       text-align: center;
     }
     .cart-item-del {
@@ -422,16 +448,11 @@
       border: none;
       color: #888;
       cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      margin-left: 8px;
-      padding: 4px 6px;
-      border-radius: 4px;
-      transition: all 0.15s;
+      font-size: 13px;
+      margin-left: 6px;
     }
     .cart-item-del:hover {
-      background: #ffebee;
-      color: #d32f2f;
+      color: #e53935;
     }
     .cart-footer {
       padding: 20px 22px;
@@ -442,9 +463,8 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       font-size: 16px;
-      color: #555;
     }
     .cart-total-price {
       color: #ee4d2d;
@@ -467,7 +487,7 @@
       background: #d73211;
     }
 
-    /* 浮動提示 Toast：放大字體、增加黑底白字對比與發光效果 */
+    /* 浮動提示 Toast (大字體、顯眼) */
     .toast {
       position: fixed;
       bottom: 35px;
@@ -479,7 +499,6 @@
       border-radius: 30px;
       font-size: 18px;
       font-weight: 700;
-      letter-spacing: 0.5px;
       border: 1px solid rgba(238, 77, 45, 0.5);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
       z-index: 2000;
@@ -500,219 +519,439 @@
 <body>
 
   <div class="container">
-    <div class="header-bar">
-      <div class="header-left">
-        <h1>精選推薦專區</h1>
-        <span class="header-subtitle">全站超取 $199 免運進行中</span>
+
+    <!-- 頂部吸頂導航列 -->
+    <header class="top-header">
+      <div class="header-brand">
+        <h1>商城精選展區</h1>
+        <span>全站免運活動進行中</span>
       </div>
+
+      <nav class="category-nav">
+        <a href="#cat-computer" class="nav-btn">💻 電腦周邊</a>
+        <a href="#cat-clothing" class="nav-btn">👕 流行服飾</a>
+        <a href="#cat-phone" class="nav-btn">📱 手機配件</a>
+        <a href="#cat-living" class="nav-btn">🍳 居家生活</a>
+      </nav>
+
       <button class="cart-btn" id="openCartBtn">
         🛒 購物車
         <span class="cart-badge" id="cartCount">0</span>
       </button>
-    </div>
+    </header>
 
-    <!-- 商品網格：一行 3 個商品 -->
-    <div class="product-grid" id="productGrid">
-      
-      <!-- 商品 1 -->
-      <div class="product-card" data-id="1" data-title="保固一年 6吋夾式電風扇【現貨發票 限時降價】" data-price="189" data-img="https://images.unsplash.com/photo-1618941716939-553df3c6c278?w=600&q=80">
-        <div class="img-wrapper">
-          <span class="discount-badge">3.1折</span>
-          <img src="https://images.unsplash.com/photo-1618941716939-553df3c6c278?w=600&q=80" alt="循環夾式電風扇" />
-        </div>
-        <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
-        <div class="info">
-          <div>
-            <p class="product-title">保固一年 6吋夾式電風扇【現貨發票 限時降價】</p>
-            <div class="badges-row">
-              <span class="tag-delivery">隔日到貨</span>
-              <span class="tag-promo">無包裝</span>
-            </div>
-          </div>
-          <div class="action-row">
-            <div class="price-row">
-              <span class="price-currency">$</span>
-              <span class="price-amount">189</span>
-            </div>
-            <button class="add-to-cart-btn">加入購物車</button>
-          </div>
-        </div>
+    <!-- ========================================== -->
+    <!-- 區塊 1：電腦方面 (滑鼠、鍵盤、螢幕、喇叭共10項) -->
+    <!-- ========================================== -->
+    <section id="cat-computer">
+      <div class="section-title-wrap">
+        <h2 class="section-title">💻 電腦周邊專區</h2>
+        <span class="section-desc">電競裝備、人體工學、高解析視聽</span>
       </div>
+      <div class="product-grid">
 
-      <!-- 商品 2 -->
-      <div class="product-card" data-id="2" data-title="當天出貨 韓系簡約大容量斜背包 女 單肩斜挎包 側背包" data-price="179" data-img="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80">
-        <div class="img-wrapper">
-          <span class="discount-badge">4.3折</span>
-          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="簡約側背包" />
-        </div>
-        <div class="shipping-bar">
-          <span>店取 $199免運 宅配 $490免運</span>
-          <span class="coupon">折5%</span>
-        </div>
-        <div class="info">
-          <div>
-            <p class="product-title">當天出貨 韓系簡約大容量斜背包 女 單肩斜挎包 側背包</p>
-            <div class="badges-row">
-              <span class="tag-promo">2件9折</span>
-              <span class="tag-delivery">隔日到貨</span>
-            </div>
-          </div>
-          <div class="action-row">
-            <div class="price-row">
-              <span class="price-currency">$</span>
-              <span class="price-amount">179</span>
-            </div>
-            <button class="add-to-cart-btn">加入購物車</button>
+        <div class="product-card" data-id="c1" data-title="人體工學垂直無線滑鼠 握感舒適 靜音微動開關" data-price="590" data-img="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.5折</span><img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80" alt="垂直滑鼠" /></div>
+          <div class="shipping-bar"><span>店取 $199免運 宅配 $490免運</span><span class="coupon">折10%</span></div>
+          <div class="info">
+            <div><p class="product-title">人體工學垂直無線滑鼠 握感舒適 靜音微動開關</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷款</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">590</span></div><button class="add-to-cart-btn">加入購物車</button></div>
           </div>
         </div>
+
+        <div class="product-card" data-id="c2" data-title="RGB 超輕量電競滑鼠 16000DPI 蜂巢式極致輕盈散熱" data-price="899" data-img="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">6.2折</span><img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80" alt="電競滑鼠" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">RGB 超輕量電競滑鼠 16000DPI 蜂巢式極致輕盈散熱</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">899</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c3" data-title="青軸/茶軸 RGB機械鍵盤 87鍵熱插拔 緊湊桌面配置" data-price="1290" data-img="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">7.0折</span><img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80" alt="機械鍵盤" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">青軸/茶軸 RGB機械鍵盤 87鍵熱插拔 緊湊桌面配置</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱門首選</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">1,290</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c4" data-title="超薄復古圓形鍵帽 藍牙雙模無線鍵盤 多裝置切換" data-price="780" data-img="https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.8折</span><img src="https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=600&q=80" alt="復古無線鍵盤" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">超薄復古圓形鍵帽 藍牙雙模無線鍵盤 多裝置切換</p><div class="badges-row"><span class="tag-promo">辦公利器</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">780</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c5" data-title="27吋 2K IPS 180Hz 電競液晶螢幕 超薄微邊框 HDR400" data-price="4990" data-img="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">8.2折</span><img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80" alt="27吋電競螢幕" /></div>
+          <div class="shipping-bar"><span>免運宅配到府</span><span class="coupon">折$300</span></div>
+          <div class="info">
+            <div><p class="product-title">27吋 2K IPS 180Hz 電競液晶螢幕 超薄微邊框 HDR400</p><div class="badges-row"><span class="tag-delivery">原廠保固</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">4,990</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c6" data-title="34吋 1500R 曲面帶魚屏螢幕 廣色域 雙視窗多工護眼" data-price="7880" data-img="https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">7.5折</span><img src="https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&q=80" alt="曲面螢幕" /></div>
+          <div class="shipping-bar">免運宅配到府</div>
+          <div class="info">
+            <div><p class="product-title">34吋 1500R 曲面帶魚屏螢幕 廣色域 雙視窗多工護眼</p><div class="badges-row"><span class="tag-promo">熱銷旗艦</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">7,880</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c7" data-title="木質立體聲 電腦雙聲道桌面喇叭 溫潤低音 震撼音質" data-price="699" data-img="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">6.0折</span><img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80" alt="桌面喇叭" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">木質立體聲 電腦雙聲道桌面喇叭 溫潤低音 震撼音質</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">699</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c8" data-title="RGB幻彩長條 Soundbar 桌面藍牙電競音箱 立體環繞" data-price="890" data-img="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.9折</span><img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80" alt="長條音箱" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">RGB幻彩長條 Soundbar 桌面藍牙電競音箱 立體環繞</p><div class="badges-row"><span class="tag-promo">氣氛首選</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">890</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c9" data-title="900x400mm 超大加厚鎖邊 麂皮絨精密電競滑鼠墊" data-price="220" data-img="https://images.unsplash.com/photo-1629429408209-1f912961dbd8?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">3.5折</span><img src="https://images.unsplash.com/photo-1629429408209-1f912961dbd8?w=600&q=80" alt="大型滑鼠墊" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">900x400mm 超大加厚鎖邊 麂皮絨精密電競滑鼠墊</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">220</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c10" data-title="氣壓式鋁合金單螢幕支架 支援17-32吋 360度自由旋轉" data-price="850" data-img="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80" alt="螢幕支架" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">氣壓式鋁合金單螢幕支架 支援17-32吋 360度自由旋轉</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">理線必備</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">850</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
       </div>
+    </section>
 
-      <!-- 商品 3 -->
-      <div class="product-card" data-id="3" data-title="現貨隔日達 無線藍牙耳機 防掉防噪音 高音質" data-price="310" data-img="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80">
-        <div class="img-wrapper">
-          <span class="discount-badge">6.6折</span>
-          <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80" alt="藍牙耳機" />
-        </div>
-        <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
-        <div class="info">
-          <div>
-            <p class="product-title">現貨隔日達 無線藍牙耳機 防掉防噪音 高音質</p>
-            <div class="badges-row">
-              <span class="tag-delivery">隔日到貨</span>
-            </div>
-          </div>
-          <div class="action-row">
-            <div class="price-row">
-              <span class="price-currency">$</span>
-              <span class="price-amount">310</span>
-            </div>
-            <button class="add-to-cart-btn">加入購物車</button>
-          </div>
-        </div>
+    <!-- ========================================== -->
+    <!-- 區塊 2：流行服飾 (帽子、衣服、褲、襪、包、鞋10項) -->
+    <!-- ========================================== -->
+    <section id="cat-clothing">
+      <div class="section-title-wrap">
+        <h2 class="section-title">👕 流行服飾與配件</h2>
+        <span class="section-desc">男女百搭穿搭、休閒街頭風格</span>
       </div>
+      <div class="product-grid">
 
-      <!-- 商品 4 -->
-      <div class="product-card" data-id="4" data-title="摺疊口袋傘 附傘套 遮陽傘 口袋傘 迷你傘 輕量" data-price="65" data-img="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80">
-        <div class="img-wrapper">
-          <span class="discount-badge">2.2折</span>
-          <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80" alt="摺疊口袋傘" />
-        </div>
-        <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
-        <div class="info">
-          <div>
-            <p class="product-title">摺疊口袋傘 附傘套 遮陽傘 口袋傘 迷你傘 輕量</p>
-            <div class="badges-row">
-              <span class="tag-delivery">隔日到貨</span>
-            </div>
-          </div>
-          <div class="action-row">
-            <div class="price-row">
-              <span class="price-currency">$</span>
-              <span class="price-amount">65</span>
-            </div>
-            <button class="add-to-cart-btn">加入購物車</button>
+        <div class="product-card" data-id="f1" data-title="經典刺繡水洗老帽 棒球帽 遮陽顯臉小 男女通用百搭" data-price="230" data-img="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.2折</span><img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&q=80" alt="老帽棒球帽" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">經典刺繡水洗老帽 棒球帽 遮陽顯臉小 男女通用百搭</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷萬頂</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">230</span></div><button class="add-to-cart-btn">加入購物車</button></div>
           </div>
         </div>
+
+        <div class="product-card" data-id="f2" data-title="復古休閒純棉漁夫帽 雙面可戴戶外防曬 露營必備" data-price="290" data-img="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.0折</span><img src="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=600&q=80" alt="漁夫帽" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">復古休閒純棉漁夫帽 雙面可戴戶外防曬 露營必備</p><div class="badges-row"><span class="tag-promo">雙面設計</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">290</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="f3" data-title="重磅 260g 精梳純棉素面落肩短袖T恤 舒適透氣不透光" data-price="350" data-img="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.8折</span><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80" alt="素色短T" /></div>
+          <div class="shipping-bar"><span>店取 $199免運</span><span class="coupon">2件9折</span></div>
+          <div class="info">
+            <div><p class="product-title">重磅 260g 精梳純棉素面落肩短袖T恤 舒適透氣不透光</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">350</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="f4" data-title="韓版寬鬆氣質法式碎花雪紡上衣 泡泡袖垂墜顯瘦設計" data-price="420" data-img="https://images.unsplash.com/photo-1534126511673-b6899657816a?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://images.unsplash.com/photo-1534126511673-b6899657816a?w=600&q=80" alt="女裝上衣" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">韓版寬鬆氣質法式碎花雪紡上衣 泡泡袖垂墜顯瘦設計</p><div class="badges-row"><span class="tag-promo">新品上市</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">420</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="f5" data-title="日系工裝多口袋寬版休閒長褲 耐磨抗撕裂 鬆緊抽繩腰" data-price="580" data-img="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">6.0折</span><img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&q=80" alt="工裝長褲" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">日系工裝多口袋寬版休閒長褲 耐磨抗撕裂 鬆緊抽繩腰</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">580</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="f6" data-title="高腰垂墜感西裝直筒闊腿拖地褲 顯瘦神褲 四季百搭" data-price="490" data-img="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&q=80" alt="直筒闊腿褲" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">高腰垂墜感西裝直筒闊腿拖地褲 顯瘦神褲 四季百搭</p><div class="badges-row"><span class="tag-promo">熱銷萬條</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">490</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="f7" data-title="【5雙入】中筒純棉運動長襪 透氣毛圈減震吸汗抗臭" data-price="199" data-img="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">3.2折</span><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=600&q=80" alt="棉襪" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">【5雙入】中筒純棉運動長襪 透氣毛圈減震吸汗抗臭</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">超值5雙組</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">199</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="f8" data-title="質感植鞣頭層牛皮短夾 多卡位獨立零錢袋 精美禮盒裝" data-price="690" data-img="https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.5折</span><img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80" alt="真皮皮夾" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">質感植鞣頭層牛皮短夾 多卡位獨立零錢袋 精美禮盒裝</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">690</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="f9" data-title="日系防潑水尼龍胸包/側背包 輕量多夾層 休閒斜挎包" data-price="390" data-img="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.3折</span><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="側背包" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">日系防潑水尼龍胸包/側背包 輕量多夾層 休閒斜挎包</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">耐磨防水</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">390</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="f10" data-title="復古經典低筒帆布小白鞋 軟底防滑舒適 學生休閒板鞋" data-price="450" data-img="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.1折</span><img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&q=80" alt="休閒小白鞋" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">復古經典低筒帆布小白鞋 軟底防滑舒適 學生休閒板鞋</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">舒適百搭</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">450</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
       </div>
+    </section>
 
-      <!-- 商品 5 -->
-      <div class="product-card" data-id="5" data-title="【台灣出貨】冰絲速乾衣 大碼男生夏季必備 90-100kg可穿" data-price="139" data-img="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80">
-        <div class="img-wrapper">
-          <span class="discount-badge">6.5折</span>
-          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80" alt="冰絲速乾衣" />
-        </div>
-        <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
-        <div class="info">
-          <div>
-            <p class="product-title">【台灣出貨】冰絲速乾衣 大碼男生夏季必備 90-100kg可穿</p>
-            <div class="badges-row">
-              <span class="tag-promo">2件裝</span>
-            </div>
-          </div>
-          <div class="action-row">
-            <div class="price-row">
-              <span class="price-currency">$</span>
-              <span class="price-amount">139</span>
-            </div>
-            <button class="add-to-cart-btn">加入購物車</button>
-          </div>
-        </div>
+    <!-- ========================================== -->
+    <!-- 區塊 3：手機配件 (螢幕貼、殼、耳機、電源、吊飾10項) -->
+    <!-- ========================================== -->
+    <section id="cat-phone">
+      <div class="section-title-wrap">
+        <h2 class="section-title">📱 手機周邊配件</h2>
+        <span class="section-desc">全機防護、快充電源、精緻隨身小物</span>
       </div>
+      <div class="product-grid">
 
-      <!-- 商品 6 -->
-      <div class="product-card" data-id="6" data-title="現貨最新4代 藍芽耳機 耳機 可通話藍牙耳機" data-price="110" data-img="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=600&q=80">
-        <div class="img-wrapper">
-          <span class="discount-badge">1.4折</span>
-          <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=600&q=80" alt="迷你藍牙耳機" />
-        </div>
-        <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
-        <div class="info">
-          <div>
-            <p class="product-title">現貨最新4代 藍芽耳機 耳機 可通話藍牙耳機</p>
-            <div class="badges-row">
-              <span class="tag-promo">無包裝</span>
-              <span class="tag-delivery">隔日到貨</span>
-            </div>
-          </div>
-          <div class="action-row">
-            <div class="price-row">
-              <span class="price-currency">$</span>
-              <span class="price-amount">110</span>
-            </div>
-            <button class="add-to-cart-btn">加入購物車</button>
+        <div class="product-card" data-id="p1" data-title="【2片裝】9D滿版鋼化玻璃保護貼 高清透亮 防指紋抗刮" data-price="129" data-img="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">2.5折</span><img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=600&q=80" alt="鋼化膜" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">【2片裝】9D滿版鋼化玻璃保護貼 高清透亮 防指紋抗刮</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">超值2片組</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">129</span></div><button class="add-to-cart-btn">加入購物車</button></div>
           </div>
         </div>
+
+        <div class="product-card" data-id="p2" data-title="防偷窺 28度真防窺鋼化貼 滿版隱私保護 旁人看不見" data-price="189" data-img="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">3.8折</span><img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&q=80" alt="防窺保護貼" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">防偷窺 28度真防窺鋼化貼 滿版隱私保護 旁人看不見</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">189</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="p3" data-title="軍規防摔 MagSafe磁吸透明手機殼 四角氣囊氣墊防護" data-price="299" data-img="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.6折</span><img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&q=80" alt="透明防摔手機殼" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">軍規防摔 MagSafe磁吸透明手機殼 四角氣囊氣墊防護</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">支援磁吸</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">299</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="p4" data-title="液態矽膠全包鏡頭手機殼 嬰兒肌膚親膚手感 內襯植絨" data-price="249" data-img="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.1折</span><img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&q=80" alt="液態矽膠手機殼" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">液態矽膠全包鏡頭手機殼 嬰兒肌膚親膚手感 內襯植絨</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">249</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="p5" data-title="ANC主動降噪 5.3無線藍牙耳機 40小時超長續航 低延遲" data-price="799" data-img="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.9折</span><img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80" alt="降噪藍牙耳機" /></div>
+          <div class="shipping-bar"><span>店取 $199免運</span><span class="coupon">折$50</span></div>
+          <div class="info">
+            <div><p class="product-title">ANC主動降噪 5.3無線藍牙耳機 40小時超長續航 低延遲</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">降噪王</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">799</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="p6" data-title="復古頭戴式重低音藍牙耳機 蛋白皮耳罩 包覆不壓耳" data-price="990" data-img="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">6.2折</span><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="頭戴式耳機" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">復古頭戴式重低音藍牙耳機 蛋白皮耳罩 包覆不壓耳</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">時尚配件</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">990</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="p7" data-title="20000mAh 自帶四線行動電源 22.5W極速快充 數顯電量" data-price="699" data-img="https://images.unsplash.com/photo-1609592807908-1e42710640df?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.2折</span><img src="https://images.unsplash.com/photo-1609592807908-1e42710640df?w=600&q=80" alt="大容量行動電源" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">20000mAh 自帶四線行動電源 22.5W極速快充 數顯電量</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">出國首選</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">699</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="p8" data-title="磁吸迷你口袋行動電源 5000mAh 輕巧直插 即插即充" data-price="450" data-img="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80" alt="迷你行動電源" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">磁吸迷你口袋行動電源 5000mAh 輕巧直插 即插即充</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">450</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="p9" data-title="手工串珠手機掛繩 腕帶防丟吊飾 可拆卸萬用墊片固定" data-price="159" data-img="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">3.9折</span><img src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=600&q=80" alt="串珠手機吊飾" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">手工串珠手機掛繩 腕帶防丟吊飾 可拆卸萬用墊片固定</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">159</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="p10" data-title="可調節斜背手機掛繩 加粗耐磨繩附夾片 出國防搶防摔" data-price="199" data-img="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.0折</span><img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80" alt="斜背掛繩" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">可調節斜背手機掛繩 加粗耐磨繩附夾片 出國防搶防摔</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷款</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">199</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
       </div>
+    </section>
 
-      <!-- 商品 7 -->
-      <div class="product-card" data-id="7" data-title="【KARAKORAM】側開秒穿 一件式雨衣 快速穿脫" data-price="569" data-img="https://images.unsplash.com/photo-1544441893-675973e31985?w=600&q=80">
-        <div class="img-wrapper">
-          <span class="discount-badge">5.2折</span>
-          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?w=600&q=80" alt="一件式雨衣" />
-        </div>
-        <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
-        <div class="info">
-          <div>
-            <p class="product-title">【KARAKORAM】側開秒穿 一件式雨衣 快速穿脫</p>
-            <div class="badges-row">
-              <span class="tag-delivery">隔日到貨</span>
-            </div>
-          </div>
-          <div class="action-row">
-            <div class="price-row">
-              <span class="price-currency">$</span>
-              <span class="price-amount">569</span>
-            </div>
-            <button class="add-to-cart-btn">加入購物車</button>
-          </div>
-        </div>
+    <!-- ========================================== -->
+    <!-- 區塊 4：居家生活 (杯子、碗、筷、鍋子10項) -->
+    <!-- ========================================== -->
+    <section id="cat-living">
+      <div class="section-title-wrap">
+        <h2 class="section-title">🍳 居家生活餐廚</h2>
+        <span class="section-desc">安心材質餐具、不沾鍋料理好幫手</span>
       </div>
+      <div class="product-grid">
 
-      <!-- 商品 8 -->
-      <div class="product-card" data-id="8" data-title="20W 雙孔閃充電源頭 PD+QC充電器 適用蘋果安卓" data-price="184" data-img="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80">
-        <div class="img-wrapper">
-          <span class="discount-badge">2.7折</span>
-          <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80" alt="20W 充電頭" />
-        </div>
-        <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
-        <div class="info">
-          <div>
-            <p class="product-title">20W 雙孔閃充電源頭 PD+QC充電器 適用蘋果安卓</p>
-            <div class="badges-row">
-              <span class="tag-delivery">隔日到貨</span>
-            </div>
-          </div>
-          <div class="action-row">
-            <div class="price-row">
-              <span class="price-currency">$</span>
-              <span class="price-amount">184</span>
-            </div>
-            <button class="add-to-cart-btn">加入購物車</button>
+        <div class="product-card" data-id="l1" data-title="316醫療級不鏽鋼 750ml保溫杯 雙層真空 附彈跳吸管" data-price="399" data-img="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.5折</span><img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=600&q=80" alt="不鏽鋼保溫杯" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">316醫療級不鏽鋼 750ml保溫杯 雙層真空 附彈跳吸管</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">保溫24H</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">399</span></div><button class="add-to-cart-btn">加入購物車</button></div>
           </div>
         </div>
+
+        <div class="product-card" data-id="l2" data-title="日式簡約高硼硅耐熱玻璃馬克杯 帶把手 咖啡牛奶杯" data-price="169" data-img="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">3.8折</span><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="玻璃咖啡杯" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">日式簡約高硼硅耐熱玻璃馬克杯 帶把手 咖啡牛奶杯</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">169</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l3" data-title="【4入組】日式手繪釉下彩陶瓷飯碗 可微波洗碗機" data-price="320" data-img="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.2折</span><img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&q=80" alt="陶瓷餐碗" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">【4入組】日式手繪釉下彩陶瓷飯碗 可微波洗碗機</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">4入禮盒組</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">320</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l4" data-title="北歐極簡雙耳大湯碗 沙拉碗 泡麵陶瓷深碗 1000ml" data-price="250" data-img="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.3折</span><img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=80" alt="陶瓷大湯碗" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">北歐極簡雙耳大湯碗 沙拉碗 泡麵陶瓷深碗 1000ml</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">250</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l5" data-title="【5雙入】日式天然鐵木合金筷 防霉抗菌防滑 耐高溫" data-price="180" data-img="https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">3.5折</span><img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=600&q=80" alt="合金筷" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">【5雙入】日式天然鐵木合金筷 防霉抗菌防滑 耐高溫</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">耐熱好洗</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">180</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l6" data-title="304不鏽鋼便攜環保餐具組 (筷子+湯匙+收納盒) 外食專用" data-price="139" data-img="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">3.0折</span><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80" alt="環保餐具組" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">304不鏽鋼便攜環保餐具組 (筷子+湯匙+收納盒) 外食專用</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">139</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l7" data-title="麥飯石八角不沾平底炒鍋 30cm 瓦斯爐電磁爐通用 輕巧好翻炒" data-price="799" data-img="https://images.unsplash.com/photo-1584990347449-a292834b6e51?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">5.3折</span><img src="https://images.unsplash.com/photo-1584990347449-a292834b6e51?w=600&q=80" alt="不沾平底炒鍋" /></div>
+          <div class="shipping-bar"><span>免運宅配</span><span class="coupon">附強化玻璃蓋</span></div>
+          <div class="info">
+            <div><p class="product-title">麥飯石八角不沾平底炒鍋 30cm 瓦斯爐電磁爐通用 輕巧好翻炒</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">熱銷冠軍</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">799</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l8" data-title="日式雪平鍋 18cm 鋁合金不沾泡麵鍋 木柄防燙雙向導流口" data-price="349" data-img="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.6折</span><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&q=80" alt="雪平鍋" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">日式雪平鍋 18cm 鋁合金不沾泡麵鍋 木柄防燙雙向導流口</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">料理小幫手</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">349</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l9" data-title="鑄鐵琺瑯湯鍋 22cm 蓄熱均勻鎖水 燉肉煲湯無水料理" data-price="1280" data-img="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">6.5折</span><img src="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=600&q=80" alt="琺瑯鑄鐵鍋" /></div>
+          <div class="shipping-bar">免運宅配到府</div>
+          <div class="info">
+            <div><p class="product-title">鑄鐵琺瑯湯鍋 22cm 蓄熱均勻鎖水 燉肉煲湯無水料理</p><div class="badges-row"><span class="tag-promo">廚房美學</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">1,280</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l10" data-title="多功能家用電煮鍋 1.8L 兩檔控溫 煎煮炒炸一鍋搞定" data-price="490" data-img="https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?w=600&q=80">
+          <div class="img-wrapper"><span class="discount-badge">4.8折</span><img src="https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?w=600&q=80" alt="多功能電煮鍋" /></div>
+          <div class="shipping-bar">店取 $199免運 宅配 $490免運</div>
+          <div class="info">
+            <div><p class="product-title">多功能家用電煮鍋 1.8L 兩檔控溫 煎煮炒炸一鍋搞定</p><div class="badges-row"><span class="tag-delivery">隔日到貨</span><span class="tag-promo">外宿租屋必備</span></div></div>
+            <div class="action-row"><div class="price-row"><span class="price-currency">$</span><span class="price-amount">490</span></div><button class="add-to-cart-btn">加入購物車</button></div>
+          </div>
+        </div>
+
       </div>
+    </section>
 
-    </div>
   </div>
 
   <!-- 購物車滑出側邊欄 -->
@@ -834,13 +1073,13 @@
         return;
       }
       const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      alert(`感謝您的選購！目前共有 ${cart.length} 種商品，總金額為：NT$ ${totalSum.toLocaleString()}。`);
+      alert(`感謝您的選購！目前購物車共 ${cart.length} 種品項，總計為：NT$ ${totalSum.toLocaleString()}。`);
     });
 
     document.querySelectorAll('.product-card').forEach(card => {
       const id = card.getAttribute('data-id');
       const title = card.getAttribute('data-title');
-      const price = parseInt(card.getAttribute('data-price'), 10);
+      const price = parseInt(card.getAttribute('data-price').replace(/,/g, ''), 10);
       const img = card.getAttribute('data-img');
 
       const addBtn = card.querySelector('.add-to-cart-btn');
