@@ -703,7 +703,6 @@
   <div class="toast" id="toast">已加入購物車！</div>
 
   <script>
-    // 購物車資料管理
     let cart = [];
 
     const cartCountEl = document.getElementById('cartCount');
@@ -716,7 +715,6 @@
     const checkoutBtn = document.getElementById('checkoutBtn');
     const toastEl = document.getElementById('toast');
 
-    // 開關購物車
     function toggleCart(isOpen) {
       if (isOpen) {
         cartOverlay.classList.add('active');
@@ -730,7 +728,6 @@
     closeCartBtn.addEventListener('click', () => toggleCart(false));
     cartOverlay.addEventListener('click', () => toggleCart(false));
 
-    // 顯示吐司提示
     function showToast(msg) {
       toastEl.textContent = msg;
       toastEl.classList.add('show');
@@ -739,9 +736,7 @@
       }, 2000);
     }
 
-    // 更新購物車介面與計算
     function updateCartUI() {
-      // 計算總數量與總額
       const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
       const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -774,7 +769,6 @@
       });
     }
 
-    // 加入購物車
     function addToCart(product) {
       const existing = cart.find(item => item.id === product.id);
       if (existing) {
@@ -786,7 +780,6 @@
       showToast(`已將「${product.title.slice(0, 10)}...」加入購物車！`);
     }
 
-    // 增減數量
     window.changeQty = function(index, change) {
       cart[index].quantity += change;
       if (cart[index].quantity <= 0) {
@@ -795,13 +788,11 @@
       updateCartUI();
     };
 
-    // 刪除項目
     window.removeItem = function(index) {
       cart.splice(index, 1);
       updateCartUI();
     };
 
-    // 結帳提示
     checkoutBtn.addEventListener('click', () => {
       if (cart.length === 0) {
         alert('您的購物車是空的，快去挑選喜歡的商品吧！');
@@ -811,21 +802,18 @@
       alert(`感謝您的選購！目前共有 ${cart.length} 種商品，總金額為：NT$ ${totalSum.toLocaleString()}。`);
     });
 
-    // 綁定商品卡片點擊事件
     document.querySelectorAll('.product-card').forEach(card => {
       const id = card.getAttribute('data-id');
       const title = card.getAttribute('data-title');
       const price = parseInt(card.getAttribute('data-price'), 10);
       const img = card.getAttribute('data-img');
 
-      // 點擊「加入購物車」按鈕
       const addBtn = card.querySelector('.add-to-cart-btn');
       addBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         addToCart({ id, title, price, img });
       });
 
-      // 點擊商品標題或圖片提供反饋互動
       const titleEl = card.querySelector('.product-title');
       const imgEl = card.querySelector('.img-wrapper');
       
